@@ -44,5 +44,5 @@ Device options
 Supported operations
 ~~~~~~~~~~~~~~~~~~~~
 
-The ``qrac.simulator`` device supports all PennyLane
+The ``qrack.simulator`` device supports all PennyLane
 `operations and observables <https://pennylane.readthedocs.io/en/stable/introduction/operations.html>`_:
