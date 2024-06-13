@@ -15,6 +15,8 @@ Features
 * Provides access to a PyQrack simulator backend via the ``qrack.simulator`` device
 * Provides access to a (C++) Qrack simulator backend for Catalyst (also) via the ``qrack.simulator`` device
 
+.. installation-start-inclusion-marker-do-not-remove
+
 Installation
 ============
 
@@ -57,6 +59,8 @@ If you currently do not have Python 3 installed, we recommend
 `Anaconda for Python 3 <https://www.anaconda.com/download/>`__, a distributed version of Python packaged
 for scientific computation.
 
+.. installation-end-inclusion-marker-do-not-remove
+
 
 Tests
 ~~~~~
@@ -98,6 +102,8 @@ If you are doing research using PennyLane and PennyLane-Qulacs, please cite `the
     Zeyue Niu, Antal Száva, and Nathan Killoran.
     *PennyLane: Automatic differentiation of hybrid quantum-classical computations.* 2018. arXiv:1811.04968
 
+
+.. support-start-inclusion-marker-do-not-remove
 Support
 =======
 
@@ -107,6 +113,8 @@ Support
 
 If you are having issues, please let us know by posting the issue on our Github issue tracker, or
 by asking a question in the forum.
+
+.. support-end-inclusion-marker-do-not-remove
 
 License
 =======
