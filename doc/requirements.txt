@@ -1,0 +1,6 @@
+docutils==0.16
+sphinxcontrib-bibtex
+pygments-github-lexers
+pennylane
+sphinx-automodapi
+pennylane-sphinx-theme

@@ -133,7 +133,7 @@ wires = "wires"
 shots = "shots"
 # Use "hybrid" stabilizer optimization? (Default is "true"; non-Clifford circuits will fall back to near-Clifford or universal simulation)
 is_hybrid_stabilizer = "isStabilizerHybrid"
-# Use "tensor network" optimization? (Default is "false"; prevents dynamic qubit de-allocation; might function sub-optimally with "hybrid" stabilizer enabled)
+# Use "tensor network" optimization? (Default is "true"; prevents dynamic qubit de-allocation; might function sub-optimally with "hybrid" stabilizer enabled)
 is_tensor_network = "isTensorNetwork"
 # Use Schmidt decomposition optimizations? (Default is "true")
 is_schmidt_decomposed = "isSchmidtDecompose"
