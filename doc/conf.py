@@ -62,9 +62,9 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "PennyLane-Qulacs"
-copyright = "2023, Xanadu Quantum Technologies Inc."
-author = "Steven Oud and Xanadu"
+project = "PennyLane-Qrack"
+copyright = "2024, Xanadu Quantum Technologies Inc."
+author = "Dan Strano, Xanadu, Unitary Fund"
 
 add_module_names = False
 
@@ -72,10 +72,10 @@ add_module_names = False
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 
-import pennylane_qulacs
+import pennylane_qrack
 
 # The full version, including alpha/beta/rc tags.
-release = pennylane_qulacs.__version__
+release = pennylane_qrack.__version__
 
 # The short X.Y version.
 version = re.match(r"^(\d+\.\d+)", release).expand(r"\1")
@@ -233,12 +233,12 @@ class Mock(MagicMock):
         return MagicMock()
 
 
-sys.modules["qulacs"] = Mock(__version__="0.1.9")
+sys.modules["qrack"] = Mock(__version__="0.1.9")
 
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "PennyLane-Qulacsdoc"
+htmlhelp_basename = "PennyLane-Qrackdoc"
 
 # # -- Xanadu theme ---------------------------------------------------------
 html_theme = 'pennylane'
@@ -248,7 +248,7 @@ html_theme = 'pennylane'
 
 # xanadu theme options (see theme.conf for more information)
 html_theme_options = {
-    "navbar_name": "PennyLane-Qulacs",
+    "navbar_name": "PennyLane-Qrack",
     "extra_copyrights": [
         "TensorFlow, the TensorFlow logo, and any related marks are trademarks "
         "of Google Inc."
@@ -258,7 +258,7 @@ html_theme_options = {
     "google_analytics_tracking_id": "G-C480Z9JL0D"
 }
 
-edit_on_github_project = 'PennyLaneAI/pennylane-qulacs'
+edit_on_github_project = 'PennyLaneAI/pennylane-qrack'
 edit_on_github_branch = 'master/doc'
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -284,7 +284,7 @@ latex_additional_files = ["macros.tex"]
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "PennyLane-Qulacs.tex", "PennyLane-Qulacs Documentation", "Xanadu Inc.", "manual"),
+    (master_doc, "PennyLane-Qrack.tex", "PennyLane-Qrack Documentation", "Xanadu Inc.", "manual"),
 ]
 
 
@@ -292,7 +292,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "PennyLane-Qulacs", "PennyLane-Qulacs Documentation", [author], 1)]
+man_pages = [(master_doc, "PennyLane-Qrack", "PennyLane-Qrack Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output -------------------------------------------
@@ -303,10 +303,10 @@ man_pages = [(master_doc, "PennyLane-Qulacs", "PennyLane-Qulacs Documentation", 
 texinfo_documents = [
     (
         master_doc,
-        "PennyLane-Qulacs",
-        "PennyLane-Qulacs Documentation",
+        "PennyLane-Qrack",
+        "PennyLane-Qrack Documentation",
         author,
-        "PennyLane-Qulacs",
+        "PennyLane-Qrack",
         "Plugin for the PennyLane quantum machine learning library.",
         "Miscellaneous",
     ),
