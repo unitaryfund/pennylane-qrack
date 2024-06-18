@@ -15,6 +15,8 @@ Features
 * Provides access to a PyQrack simulator backend via the ``qrack.simulator`` device
 * Provides access to a (C++) Qrack simulator backend for Catalyst (also) via the ``qrack.simulator`` device
 
+.. installation-start-inclusion-marker-do-not-remove
+
 Installation
 ============
 
@@ -57,6 +59,7 @@ If you currently do not have Python 3 installed, we recommend
 `Anaconda for Python 3 <https://www.anaconda.com/download/>`__, a distributed version of Python packaged
 for scientific computation.
 
+.. installation-end-inclusion-marker-do-not-remove
 
 Tests
 ~~~~~
