@@ -44,7 +44,7 @@ like so:
 
 .. code-block:: python
 
-    dev = qml.device('Qrack.simulator', wires=2, isBinaryDecisionTree=True)
+    dev = qml.device('qrack.simulator', wires=2, isBinaryDecisionTree=True)
 
 
 This is a complete list of boolean options and their meanings:

@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""PennyLane-Qrack plugin"""
+"""PennyLane-Qrack plugin (no public API)"""
 from ._version import __version__
