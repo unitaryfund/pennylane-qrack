@@ -4,3 +4,4 @@ pygments-github-lexers
 pennylane
 sphinx-automodapi
 pennylane-sphinx-theme
+scikit-build>=0.1.0
