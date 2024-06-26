@@ -1,4 +1,4 @@
-name: Build PennyLane-Qrack Wheels
+name: Test PennyLane-Qrack
 
 on:
   push:
