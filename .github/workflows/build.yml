@@ -54,14 +54,12 @@ jobs:
           cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DQBCAPPOW=12 -DCPP_STD=14 ..
           make qrack
 
-      - name: Build and Install
+      - name: Build Wheel
         run: |
-          pip install .
+          python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
 
-      - name: Run tests
-        run: python -m pytest tests --cov-report=term-missing --cov-report=xml -p no:warnings --tb=native
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.0.7
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
         with:
-          file: ./coverage.xml
+          name: pennylane_qrack-${{ matrix.platform }}
+          path: dist/
