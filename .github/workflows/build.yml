@@ -54,6 +54,12 @@ jobs:
           cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DQBCAPPOW=12 -DCPP_STD=14 ..
           make qrack
 
+      - name: Build Catalyst Linux x86-64
+        run: |
+          cd catalyst
+          pip install -r requirements.txt
+          make all
+
       - name: Build Wheel
         run: |
           python setup.py bdist_wheel --plat-name=${{ matrix.platform }}

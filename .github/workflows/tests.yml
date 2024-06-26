@@ -39,6 +39,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
+          python -m pip install --upgrade pytest pytest-cov pytest-mock
           python -m pip install wheel setuptools
 
       - name: Prepare Build Environment (Linux)
@@ -53,6 +54,12 @@ jobs:
           cd build
           cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DQBCAPPOW=12 -DCPP_STD=14 ..
           make qrack
+
+      - name: Build Catalyst Linux x86-64
+        run: |
+          cd catalyst
+          pip install -r requirements.txt
+          make all
 
       - name: Build and Install
         run: |
