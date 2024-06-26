@@ -57,6 +57,7 @@ jobs:
       - name: Build Catalyst Linux x86-64
         run: |
           cd catalyst
+          git submodule update --init --depth=1
           pip install -r requirements.txt
           make all
 
