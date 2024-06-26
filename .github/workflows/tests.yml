@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.9, '3.10', '3.11']
+        python-version: ['3.10', '3.11', '3.12']
 
 
     steps:
@@ -38,9 +38,11 @@ jobs:
           cd qrack
           mkdir _build
           cd _build
-          cmake ..
+          cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DQBCAPPOW=12 -DCPP_STD=14 ..
           sudo make install
           cd ../..
+          cd catalyst
+          make runtime
 
       - name: Install Plugin
         run: |
