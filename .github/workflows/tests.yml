@@ -42,6 +42,7 @@ jobs:
           sudo make install
           cd ../..
           cd catalyst
+          pip install -r requirements.txt
           make runtime
 
       - name: Install Plugin
