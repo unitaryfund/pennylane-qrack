@@ -52,7 +52,7 @@ jobs:
           mkdir build
           cd build
           cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DQBCAPPOW=12 -DCPP_STD=14 ..
-          make qrack
+          sudo make install
 
       - name: Build Catalyst Linux x86-64
         run: |
