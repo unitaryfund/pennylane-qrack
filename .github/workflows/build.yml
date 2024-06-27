@@ -64,7 +64,11 @@ jobs:
       - name: Build Wheel
         run: |
           pip install -r requirements.txt
+          pip install .
           python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
+
+      - name: Run tests
+        run: python -m pytest tests --cov-report=term-missing --cov-report=xml -p no:warnings --tb=native
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
