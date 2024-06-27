@@ -73,7 +73,7 @@ jobs:
           name: pennylane_qrack-${{ matrix.platform }}
           path: dist/
 
-build_jammy:
+  build_jammy:
     runs-on: ubuntu-22.04  # Use a Jammy Jellyfish runner
     strategy:
       matrix:
