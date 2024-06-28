@@ -242,6 +242,9 @@ jobs:
           cd build
           cmake -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_RDRAND=OFF -DENABLE_OPENCL=OFF -DENABLE_FIXED_POINT=ON -DQBCAPPOW=12 -DCPP_STD=14 ..
           sudo make install
+          mkdir qrack
+          cp -r include/* qrack
+          cp -r ../include/* qrack
 
       - name: Build Catalyst MacOS
         run: |
@@ -258,7 +261,7 @@ jobs:
         run: |
           source catalyst_venv/bin/activate
           pip3 install -r requirements.txt
-          export CPLUS_INCLUDE_PATH=${GITHUB_WORKSPACE}/qrack/build/include
+          export CPLUS_INCLUDE_PATH=${GITHUB_WORKSPACE}/qrack/build
           export LIBRARY_PATH=${GITHUB_WORKSPACE}/qrack/build
           pip3 install .
           python3 setup.py bdist_wheel --plat-name=${{ matrix.platform }}
