@@ -245,7 +245,7 @@ jobs:
 
       - name: Build Catalyst MacOS
         run: |
-          catalyst_venv
+          mkdir catalyst_venv
           python3 -m venv catalyst_venv
           source catalyst_venv/bin/activate
           cd catalyst
