@@ -233,7 +233,7 @@ jobs:
 
       - name: Prepare Build Environment (MacOS)
         run: |
-          brew install cmake ninja libomp numpy pybind11 pyyaml
+          brew install cmake ninja libomp numpy pybind11 pyyaml virtualenv
 
       - name: Build Qrack MacOS
         run: |
@@ -243,18 +243,23 @@ jobs:
           cmake -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_RDRAND=OFF -DENABLE_OPENCL=OFF -DENABLE_FIXED_POINT=ON -DQBCAPPOW=12 -DCPP_STD=14 ..
           sudo make install
 
-      - name: Build Catalyst Linux x86-64
+      - name: Build Catalyst MacOS
         run: |
+          catalyst_venv
+          python3 -m venv catalyst_venv
+          source catalyst_venv/bin/activate
           cd catalyst
           git submodule update --init --depth=1
-          pip install -r requirements.txt
+          pip3 install numpy pybind11 pyyaml 
+          pip3 install -r requirements.txt
           make all
 
       - name: Build Wheel
         run: |
-          pip install -r requirements.txt
-          pip install .
-          python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
+          source catalyst_venv/bin/activate
+          pip3 install -r requirements.txt
+          pip3 install .
+          python3 setup.py bdist_wheel --plat-name=${{ matrix.platform }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
