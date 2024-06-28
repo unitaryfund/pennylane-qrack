@@ -259,7 +259,7 @@ jobs:
           source catalyst_venv/bin/activate
           pip3 install -r requirements.txt
           export CPLUS_INCLUDE_PATH=/usr/local/include
-          export LIBRARY_PATH=/usr/local/lib
+          export LIBRARY_PATH=/usr/local/lib/qrack
           pip3 install .
           python3 setup.py bdist_wheel --plat-name=${{ matrix.platform }}
 
