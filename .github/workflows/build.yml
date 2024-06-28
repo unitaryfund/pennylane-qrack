@@ -257,11 +257,12 @@ jobs:
       - name: Build Wheel
         run: |
           source catalyst_venv/bin/activate
+          pip3 install --upgrade wheel setuptools
           pip3 install -r requirements.txt
           export CPLUS_INCLUDE_PATH=/usr/local/include
           export LIBRARY_PATH=/usr/local/lib/qrack
           pip3 install .
-          python3 setup.py bdist_wheel --plat-name=${{ matrix.platform }}
+          python3 setup.py bdist_wheel
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
