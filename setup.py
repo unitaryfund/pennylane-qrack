@@ -28,8 +28,6 @@ requirements = [
     "pyqrack>=0.13.0",
     "numpy~=1.16"
 ]
-if os.name != 'nt':
-    requirements.append("pennylane-catalyst>=0.6")
 
 info = {
     "name": "pennylane-qrack",
