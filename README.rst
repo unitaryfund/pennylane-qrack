@@ -51,8 +51,11 @@ PennyLane-Qrack requires the following libraries be installed:
 as well as the following Python packages:
 
 * `PennyLane <http://pennylane.readthedocs.io/>`__ >= 0.32
-* `Catalyst <https://docs.pennylane.ai/projects/catalyst/en/stable/index.html>`__ >= 0.6
 * `PyQrack <https://github.com/vm6502q/pyqrack>`__  >= 1.28.0
+
+with optional functionality provided by the following Python packages:
+
+* `Catalyst <https://docs.pennylane.ai/projects/catalyst/en/stable/index.html>`__ >= 0.7
 
 
 If you currently do not have Python 3 installed, we recommend
