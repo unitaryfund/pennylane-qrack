@@ -14,7 +14,10 @@
 #!/usr/bin/env python3
 import os
 import re
-from skbuild import setup
+if os.name == 'nt':
+    from setuptools import setup
+else:
+    from skbuild import setup
 
 
 with open("./pennylane_qrack/_version.py") as f:
@@ -24,8 +27,7 @@ requirements = [
     "pennylane>=0.32",
     "pennylane-catalyst>=0.6",
     "pyqrack>=0.13.0",
-    "numpy~=1.16",
-    "scikit-build>=0.1.0",
+    "numpy~=1.16"
 ]
 
 info = {
