@@ -33,5 +33,5 @@ build:
     - software-properties-common
   jobs:
     pre_install:
-      - sudo add-apt-repository ppa:wrathfulspatula/vm6502q
-      - sudo apt install -y pyqrack
+      - add-apt-repository ppa:wrathfulspatula/vm6502q
+      - apt install -y pyqrack
