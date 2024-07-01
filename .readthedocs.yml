@@ -21,8 +21,6 @@ formats:
 python:
   install:
     - requirements: doc/requirements.txt
-    - method: pip
-      path: .
 
 build:
   os: ubuntu-22.04
@@ -30,8 +28,3 @@ build:
     python: "3.9"
   apt_packages:
     - graphviz
-    - software-properties-common
-  jobs:
-    pre_install:
-      - add-apt-repository ppa:wrathfulspatula/vm6502q
-      - apt install -y pyqrack
