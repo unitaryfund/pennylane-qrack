@@ -39,7 +39,7 @@ be most appropriate for best performance. Qrack will also automatically use the 
 "layers" that tend to work best for general "BQP-complete" tasks like random circuit sampling.
 
 If you'd like to use a special-case algorithm, like quantum binary decision diagrams (QBDD), or if you want more
-direct control over choice of algorithm and hardware used, there are a series of boolean options users can toggle
+direct control over choice of algorithm and hardware used, there is a series of boolean options users can toggle
 like so:
 
 .. code-block:: python
@@ -48,13 +48,13 @@ like so:
 
 
 This is a complete list of boolean options and their meanings:
-- `isStabilizerHybrid`: Use "hybrid" stabilizer optimization? (Default is "`True`"; non-Clifford circuits will fall back to near-Clifford or universal simulation) 
-- `isTensorNetwork`: Use "tensor network" optimization? (Default is "`True`"; prevents dynamic qubit de-allocation; might function sub-optimally with "hybrid" stabilizer enabled)
-- `isSchmidtDecompose`: Use Schmidt decomposition optimizations? (Default is "`True`")
-- `isSchmidtDecomposeMulti`: Distribute Schmidt-decomposed qubit subsystems to multiple GPUs or accelerators, if available? (Default is "`True`"; mismatched device capacities might hurt overall performance)
-- `isBinaryDecisionTree`: Use "quantum binary decision diagram" ("QBDD") methods? (Default is "`False`"; note that QBDD is CPU-only)
-- `isOpenCL`: Use GPU acceleration? (Default is "`True`")
-- `isHostPointer`: Allocate GPU buffer from general host heap? (Default is "`False`"; "`True`" might improve performance or reliability in certain cases, like if using an Intel HD as accelerator)
+* `isStabilizerHybrid`: Use "hybrid" stabilizer optimization? (Default is "`True`"; non-Clifford circuits will fall back to near-Clifford or universal simulation)
+* `isTensorNetwork`: Use "tensor network" optimization? (Default is "`True`"; prevents dynamic qubit de-allocation; might function sub-optimally with "hybrid" stabilizer enabled)
+* `isSchmidtDecompose`: Use Schmidt decomposition optimizations? (Default is "`True`")
+* `isSchmidtDecomposeMulti`: Distribute Schmidt-decomposed qubit subsystems to multiple GPUs or accelerators, if available? (Default is "`True`"; mismatched device capacities might hurt overall performance)
+* `isBinaryDecisionTree`: Use "quantum binary decision diagram" ("QBDD") methods? (Default is "`False`"; note that QBDD is CPU-only)
+* `isOpenCL`: Use GPU acceleration? (Default is "`True`")
+* `isHostPointer`: Allocate GPU buffer from general host heap? (Default is "`False`"; "`True`" might improve performance or reliability in certain cases, like if using an Intel HD as accelerator)
 
 Supported operations
 ~~~~~~~~~~~~~~~~~~~~
