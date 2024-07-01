@@ -48,13 +48,34 @@ like so:
 
 
 This is a complete list of boolean options and their meanings:
-* `isStabilizerHybrid`: Use "hybrid" stabilizer optimization? (Default is "`True`"; non-Clifford circuits will fall back to near-Clifford or universal simulation)
-* `isTensorNetwork`: Use "tensor network" optimization? (Default is "`True`"; prevents dynamic qubit de-allocation; might function sub-optimally with "hybrid" stabilizer enabled)
-* `isSchmidtDecompose`: Use Schmidt decomposition optimizations? (Default is "`True`")
-* `isSchmidtDecomposeMulti`: Distribute Schmidt-decomposed qubit subsystems to multiple GPUs or accelerators, if available? (Default is "`True`"; mismatched device capacities might hurt overall performance)
-* `isBinaryDecisionTree`: Use "quantum binary decision diagram" ("QBDD") methods? (Default is "`False`"; note that QBDD is CPU-only)
-* `isOpenCL`: Use GPU acceleration? (Default is "`True`")
-* `isHostPointer`: Allocate GPU buffer from general host heap? (Default is "`False`"; "`True`" might improve performance or reliability in certain cases, like if using an Intel HD as accelerator)
+
+.. rst-class:: docstable
+
+    +---------------------------+-------------+------------------------------------------------------------------------------------+
+    | **Parameter**             | **Default** | **Description**                                                                    |
+    +===========================+=============+====================================================================================+
+    | `isStabilizerHybrid`      | True        | Use "hybrid" stabilizer optimization?                                              |
+    |                           |             | (Non-Clifford circuits will fall back to near-Clifford or universal simulation.)   |
+    +---------------------------+-------------+------------------------------------------------------------------------------------+
+    | `isTensorNetwork`         | True        | Use "tensor network" optimization?                                                 |
+    |                           |             | (Non-Clifford circuits will fall back to near-Clifford or universal simulation.)   |
+    +---------------------------+-------------+------------------------------------------------------------------------------------+
+    | `isSchmidtDecompose`      | True        | Use Schmidt decomposition optimizations?                                           |
+    |                           |             |                                                                                    |
+    +---------------------------+-------------+------------------------------------------------------------------------------------+
+    | `isSchmidtDecomposeMulti` | True        | Distribute Schmidt-decomposed qubit subsystems to multiple GPUs or accelerators?   |
+    |                           |             | (Mismatched device capacities might hurt overall performance.)                     |
+    +---------------------------+-------------+------------------------------------------------------------------------------------+
+    | `isBinaryDecisionTree`    | False       | Use "quantum binary decision diagram" ("QBDD") methods?                            |
+    |                           |             | (Note that QBDD is CPU-only.)                                                      |
+    +---------------------------+-------------+------------------------------------------------------------------------------------+
+    | `isOpenCL`                | True        | Use GPU acceleration?                                                              |
+    |                           |             |                                                                                    |
+    +---------------------------+-------------+------------------------------------------------------------------------------------+
+    | `isHostPointer`           | False       | Allocate GPU buffer from general host heap?                                        |
+    |                           |             | (Might improve performance or reliability, like when accelerating on an Intel HD.) |
+    +---------------------------+-------------+------------------------------------------------------------------------------------+
+
 
 Supported operations
 ~~~~~~~~~~~~~~~~~~~~
