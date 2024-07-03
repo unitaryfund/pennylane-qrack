@@ -6,4 +6,3 @@ include requirements.txt
 include CHANGELOG.md
 include LICENSE
 include README.rst
-exclude MANIFEST.in
