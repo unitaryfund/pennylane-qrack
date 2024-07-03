@@ -25,8 +25,8 @@ with open("./pennylane_qrack/_version.py") as f:
 
 requirements = [
     "pennylane>=0.32",
-    "pyqrack>=0.13.0",
-    "numpy~=1.16"
+    "pyqrack>=1.28.0",
+    "numpy>=1.16"
 ]
 
 info = {
@@ -67,6 +67,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Scientific/Engineering :: Physics",
 ]
