@@ -5,10 +5,13 @@
 
 #define CL_HPP_TARGET_OPENCL_VERSION 300
 #include "qrack/qfactory.hpp"
+<<<<<<< Updated upstream
 
-#define QSIM_CONFIG(numQubits) CreateQuantumInterface(simulatorType, numQubits, Qrack::ZERO_BCI, nullptr, Qrack::CMPLX_DEFAULT_ARG, false, true, is_host_pointer)
+#define QSIM_CONFIG(numQubits) Qrack::CreateArrangedLayers(md, sd, sh, bdt, true, tn, true, oc, numQubits, Qrack::ZERO_BCI, nullptr, Qrack::CMPLX_DEFAULT_ARG, false, true, hp)
 
 std::string trim(std::string s)
+=======
+>>>>>>> Stashed changes
 {
     // Cut leading, trailing, and extra spaces
     // (See https://stackoverflow.com/questions/1798112/removing-leading-and-trailing-spaces-from-a-string#answer-1798170)
@@ -32,7 +35,13 @@ struct QrackObservable {
 
 struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     bool tapeRecording;
-    bool is_host_pointer;
+    bool sh;
+    bool tn;
+    bool sd;
+    bool md;
+    bool bdt;
+    bool oc;
+    bool hp;
     bitLenInt allocated_qubits;
     bitLenInt mapped_qubits;
     size_t shots;
@@ -374,7 +383,13 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
 
     QrackDevice([[maybe_unused]] std::string kwargs = "{}")
         : tapeRecording(false)
-        , is_host_pointer(false)
+        , sh(true)
+        , tn(true)
+        , sd(true)
+        , md(true)
+        , bdt(false)
+        , oc(true)
+        , hp(false)
         , allocated_qubits(0U)
         , mapped_qubits(0U)
         , shots(1U)
@@ -396,13 +411,6 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         keyMap["'is_qbdd'"] = 7;
         keyMap["'is_gpu'"] = 8;
         keyMap["'is_host_pointer'"] = 9;
-
-        bool is_hybrid_stabilizer = true;
-        bool is_tensor_network = true;
-        bool is_schmidt_decomposed = true;
-        bool is_schmidt_decomposition_parallel = true;
-        bool is_qbdd = false;
-        bool is_gpu = true;
 
         size_t pos;
         while ((pos = kwargs.find(":")) != std::string::npos) {
@@ -464,63 +472,44 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
                     }
                     break;
                 case 3:
-                    is_hybrid_stabilizer = val;
+                    sh = val;
                     break;
                 case 4:
-                    is_tensor_network = val;
+                    tn = val;
                     break;
                 case 5:
-                    is_schmidt_decomposed = val;
+                    sd = val;
                     break;
                 case 6:
-                    is_schmidt_decomposition_parallel = val;
+                    md = val;
                     break;
                 case 7:
-                    is_qbdd = val;
+                    bdt = val;
                     break;
                 case 8:
-                    is_gpu =  val;
+                    oc =  val;
                     break;
                 case 9:
-                    is_host_pointer = val;
+                    hp = val;
                     break;
                 default:
                     break;
             }
         }
 
-        // Construct backwards, then reverse:
-        if (!is_gpu) {
-            simulatorType.push_back(Qrack::QINTERFACE_CPU);
-        }
-
-        if (is_qbdd) {
-            simulatorType.push_back(Qrack::QINTERFACE_BDT_HYBRID);
-        }
-
-        if (is_hybrid_stabilizer) {
-            simulatorType.push_back(Qrack::QINTERFACE_STABILIZER_HYBRID);
-        }
-
-        if (is_schmidt_decomposed) {
-            simulatorType.push_back(is_schmidt_decomposition_parallel ? Qrack::QINTERFACE_QUNIT_MULTI : Qrack::QINTERFACE_QUNIT);
-        }
-
-        if (is_tensor_network) {
-            simulatorType.push_back(Qrack::QINTERFACE_TENSOR_NETWORK);
-        }
-
-        // (...then reverse:)
-        std::reverse(simulatorType.begin(), simulatorType.end());
-
-        if (!simulatorType.size()) {
-            simulatorType.push_back(Qrack::QINTERFACE_CPU);
-        }
-
         qsim = QSIM_CONFIG(mapped_qubits);
     }
 
-    QrackDevice &operator=(const QuantumDevice &) = delete;
+    QrackDevice &operator
+        
+        Qrack::CreateArrangedLayers( \
+    is_schmidt_decomposition_parallel,                      \
+    is_schmidt_decomposed,                                  \
+    is_hybrid_stabilizer,                                   \
+    is_qbdd, true, is_tensor_network, true, is_gpu,         \
+    numQubits, Qrack::ZERO_BCI, nullptr,                    \
+    Qrack::CMPLX_DEFAULT_ARG,                               \
+    false, true, is_host_pointer)=(const QuantumDevice &) = delete;
     QrackDevice(const QrackDevice &) = delete;
     QrackDevice(QrackDevice &&) = delete;
     QrackDevice &operator=(QuantumDevice &&) = delete;
