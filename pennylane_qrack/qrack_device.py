@@ -38,6 +38,7 @@ from pennylane.wires import Wires
 from pyqrack import QrackSimulator, Pauli
 
 from ._version import __version__
+from sys import platform as _platform
 
 # tolerance for numerical errors
 tolerance = 1e-10
@@ -145,10 +146,15 @@ class QrackDevice(QubitDevice):
 
     @staticmethod
     def get_c_interface():
-        return (
-            "QrackDevice",
-            os.path.dirname(sys.modules[__name__].__file__) + "/libqrack_device.so",
-        )
+        shared_lib_path = os.path.dirname(sys.modules[__name__].__file__) + "/libqrack_device.so"
+        if _platform == "win32":
+            shared_lib_path = os.path.dirname(sys.modules[__name__].__file__) + "/qrack_device.dll"
+        elif _platform == "darwin":
+            shared_lib_path = (
+                os.path.dirname(sys.modules[__name__].__file__) + "/libqrack_device.dylib"
+            )
+
+        return ("QrackDevice", shared_lib_path)
 
     def __init__(self, wires=0, shots=None, **kwargs):
         super().__init__(wires=wires, shots=shots)
