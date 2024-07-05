@@ -5,13 +5,10 @@
 
 #define CL_HPP_TARGET_OPENCL_VERSION 300
 #include "qrack/qfactory.hpp"
-<<<<<<< Updated upstream
 
 #define QSIM_CONFIG(numQubits) Qrack::CreateArrangedLayers(md, sd, sh, bdt, true, tn, true, oc, numQubits, Qrack::ZERO_BCI, nullptr, Qrack::CMPLX_DEFAULT_ARG, false, true, hp)
 
 std::string trim(std::string s)
-=======
->>>>>>> Stashed changes
 {
     // Cut leading, trailing, and extra spaces
     // (See https://stackoverflow.com/questions/1798112/removing-leading-and-trailing-spaces-from-a-string#answer-1798170)
@@ -500,16 +497,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         qsim = QSIM_CONFIG(mapped_qubits);
     }
 
-    QrackDevice &operator
-        
-        Qrack::CreateArrangedLayers( \
-    is_schmidt_decomposition_parallel,                      \
-    is_schmidt_decomposed,                                  \
-    is_hybrid_stabilizer,                                   \
-    is_qbdd, true, is_tensor_network, true, is_gpu,         \
-    numQubits, Qrack::ZERO_BCI, nullptr,                    \
-    Qrack::CMPLX_DEFAULT_ARG,                               \
-    false, true, is_host_pointer)=(const QuantumDevice &) = delete;
+    QrackDevice &operator=(const QuantumDevice &) = delete;
     QrackDevice(const QrackDevice &) = delete;
     QrackDevice(QrackDevice &&) = delete;
     QrackDevice &operator=(QuantumDevice &&) = delete;
