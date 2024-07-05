@@ -150,7 +150,9 @@ class QrackDevice(QubitDevice):
         if _platform == "win32":
             shared_lib_path = os.path.dirname(sys.modules[__name__].__file__) + "/qrack_device.dll"
         elif _platform == "darwin":
-            shared_lib_path = os.path.dirname(sys.modules[__name__].__file__) + "/libqrack_device.dylib"
+            shared_lib_path = (
+                os.path.dirname(sys.modules[__name__].__file__) + "/libqrack_device.dylib"
+            )
 
         return ("QrackDevice", shared_lib_path)
 
