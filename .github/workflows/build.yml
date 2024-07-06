@@ -30,6 +30,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
+          ref: 1e8e821
 
       - name: Prepare Build Environment (Linux)
         run: |
@@ -56,7 +57,6 @@ jobs:
         run: |
           source venv/bin/activate
           cd catalyst
-          git checkout 1e8e821
           git submodule update --init --depth=1
           pip install -r requirements.txt
           make all
@@ -95,6 +95,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
+          ref: 1e8e821
 
       - name: Prepare Build Environment (Linux)
         run: |
@@ -121,7 +122,6 @@ jobs:
         run: |
           source venv/bin/activate
           cd catalyst
-          git checkout 1e8e821
           git submodule update --init --depth=1
           pip install -r requirements.txt
           make all
@@ -160,6 +160,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
+          ref: 1e8e821
 
       - name: Install Python Dependencies
         run: |
@@ -187,7 +188,6 @@ jobs:
           python3 -m venv catalyst_venv
           source catalyst_venv/bin/activate
           cd catalyst
-          git checkout 1e8e821
           git submodule update --init --depth=1
           pip3 install numpy pybind11 pyyaml 
           pip3 install -r requirements.txt
