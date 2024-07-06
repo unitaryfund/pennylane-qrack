@@ -30,7 +30,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 1e8e821
+          ref: v0.7.0-rc
 
       - name: Prepare Build Environment (Linux)
         run: |
@@ -95,7 +95,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 1e8e821
+          ref: v0.7.0-rc
 
       - name: Prepare Build Environment (Linux)
         run: |
@@ -160,7 +160,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 1e8e821
+          ref: v0.7.0-rc
 
       - name: Install Python Dependencies
         run: |
