@@ -17,9 +17,9 @@ import re
 import sys
 import subprocess
 from setuptools import setup
-from setuptools.command.build_py import build_py
+from setuptools.command.build_ext import build_ext
 
-class Build(build_py):
+class Build(build_ext):
     def run(self):
         protoc_command = ["make", "build-deps"]
         if subprocess.call(protoc_command) != 0:
@@ -44,7 +44,7 @@ info = {
     "url": "http://github.com/vm6502q",
     "license": "Apache License 2.0",
     "packages": ["pennylane_qrack"],
-    "cmdclass": { 'build_py': Build },
+    "cmdclass": { 'build_ext': Build },
     "entry_points": {
         "pennylane.plugins": [
             "qrack.simulator = pennylane_qrack.qrack_device:QrackDevice"
