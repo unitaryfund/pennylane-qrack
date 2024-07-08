@@ -51,7 +51,6 @@ jobs:
         run: |
           source venv/bin/activate
           pip install -r requirements.txt
-          make build-deps
           pip install .
           python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
 
@@ -103,7 +102,6 @@ jobs:
         run: |
           source venv/bin/activate
           pip install -r requirements.txt
-          make build-deps
           pip install .
           python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
 
@@ -154,7 +152,6 @@ jobs:
       - name: Build Wheel
         run: |
           pip install -r requirements.txt
-          make build-deps
           pip install .
           python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
 
@@ -209,7 +206,6 @@ jobs:
           source catalyst_venv/bin/activate
           pip3 install --upgrade wheel setuptools
           pip3 install -r requirements.txt
-          make build-deps
           pip3 install .
           python3 setup.py bdist_wheel
 

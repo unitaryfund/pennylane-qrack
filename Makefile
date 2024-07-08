@@ -22,9 +22,6 @@ help:
 
 .PHONY: build-deps
 build-deps:
-ifndef PYTHON3
-	@echo "To install PennyLane-Qrack you need to have Python 3 installed"
-endif
 ifneq ($(OS),Windows_NT)
 ifeq ($(QRACK_PRESENT),)
 	git clone https://github.com/unitaryfund/qrack.git
@@ -37,7 +34,7 @@ ifeq ($(UNAME_S),Darwin)
 ifeq ($(UNAME_P),x86_64)
 	cd qrack/build; cmake -DENABLE_OPENCL=OFF -DQBCAPPOW=12 -DCPP_STD=14 ..; make all
 else
-	cd qrack/build; cmake -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_RDRAND=OFF -DENABLE_OPENCL=OFF -DQBCAPPOW=12 -DCPP_STD=14 ..; make all
+	cd qrack/build; cmake -DENABLE_OPENCL=OFF -DQBCAPPOW=12 -DCPP_STD=14 -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_RDRAND=OFF ..; make all
 endif
 endif
 endif
@@ -45,6 +42,9 @@ endif
 
 .PHONY: install
 install:
+ifndef PYTHON3
+	@echo "To install PennyLane-Qrack you need to have Python 3 installed"
+endif
 	$(PYTHON) setup.py install
 
 .PHONY: wheel
