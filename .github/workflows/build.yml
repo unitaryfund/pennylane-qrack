@@ -51,6 +51,7 @@ jobs:
         run: |
           source venv/bin/activate
           pip install -r requirements.txt
+          make build-deps
           pip install .
           python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
 
@@ -102,6 +103,7 @@ jobs:
         run: |
           source venv/bin/activate
           pip install -r requirements.txt
+          make build-deps
           pip install .
           python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
 
@@ -152,6 +154,7 @@ jobs:
       - name: Build Wheel
         run: |
           pip install -r requirements.txt
+          make build-deps
           pip install .
           python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
 
@@ -166,7 +169,7 @@ jobs:
     strategy:
       matrix:
         platform:
-          - macosx_10_4_universal2
+          - macosx_14_0_arm64
     steps:
       - name: Checkout PennyLane-Qrack
         uses: actions/checkout@v4
@@ -206,13 +209,14 @@ jobs:
           source catalyst_venv/bin/activate
           pip3 install --upgrade wheel setuptools
           pip3 install -r requirements.txt
+          make build-deps
           pip3 install .
           python3 setup.py bdist_wheel
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: pennylane_qrack-${{ matrix.platform }}
+          name: python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
           path: dist/
 
   build_windows:
