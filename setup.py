@@ -14,10 +14,17 @@
 #!/usr/bin/env python3
 import os
 import re
-if os.name == 'nt':
-    from setuptools import setup
-else:
-    from skbuild import setup
+import sys
+import subprocess
+from setuptools import setup
+from setuptools.command.build_py import build_py
+
+class Build(build_py):
+    def run(self):
+        protoc_command = ["make", "build-deps"]
+        if subprocess.call(protoc_command) != 0:
+            sys.exit(-1)
+        super().run()
 
 
 with open("./pennylane_qrack/_version.py") as f:
@@ -37,6 +44,7 @@ info = {
     "url": "http://github.com/vm6502q",
     "license": "Apache License 2.0",
     "packages": ["pennylane_qrack"],
+    "cmdclass": { 'build_py': Build },
     "entry_points": {
         "pennylane.plugins": [
             "qrack.simulator = pennylane_qrack.qrack_device:QrackDevice"

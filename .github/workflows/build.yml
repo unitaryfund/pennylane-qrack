@@ -19,12 +19,6 @@ jobs:
       - name: Checkout PennyLane-Qrack
         uses: actions/checkout@v4
 
-      - name: Checkout Qrack
-        uses: actions/checkout@v4
-        with:
-          repository: 'unitaryfund/qrack'
-          path: qrack
-
       - name: Checkout Catalyst
         uses: actions/checkout@v4
         with:
@@ -44,14 +38,6 @@ jobs:
           source venv/bin/activate
           python -m pip install --upgrade pip
           python -m pip install wheel setuptools
-
-      - name: Build Qrack Linux x86-64
-        run: |
-          cd qrack
-          mkdir build
-          cd build
-          cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DQBCAPPOW=12 -DCPP_STD=14 ..
-          sudo make install
 
       - name: Build Catalyst Linux x86-64
         run: |
@@ -84,12 +70,6 @@ jobs:
       - name: Checkout PennyLane-Qrack
         uses: actions/checkout@v4
 
-      - name: Checkout Qrack
-        uses: actions/checkout@v4
-        with:
-          repository: 'unitaryfund/qrack'
-          path: qrack
-
       - name: Checkout Catalyst
         uses: actions/checkout@v4
         with:
@@ -109,14 +89,6 @@ jobs:
           source venv/bin/activate
           python -m pip install --upgrade pip
           python -m pip install wheel setuptools
-
-      - name: Build Qrack Linux x86-64
-        run: |
-          cd qrack
-          mkdir build
-          cd build
-          cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DQBCAPPOW=12 -DCPP_STD=14 ..
-          sudo make install
 
       - name: Build Catalyst Linux x86-64
         run: |
@@ -149,12 +121,6 @@ jobs:
       - name: Checkout PennyLane-Qrack
         uses: actions/checkout@v4
 
-      - name: Checkout Qrack
-        uses: actions/checkout@v4
-        with:
-          repository: 'unitaryfund/qrack'
-          path: qrack
-
       - name: Checkout Catalyst
         uses: actions/checkout@v4
         with:
@@ -175,14 +141,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install wheel setuptools
-
-      - name: Build Qrack Linux x86-64
-        run: |
-          cd qrack
-          mkdir build
-          cd build
-          cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DQBCAPPOW=12 -DCPP_STD=14 ..
-          sudo make install
 
       - name: Build Catalyst Linux x86-64
         run: |
@@ -213,12 +171,6 @@ jobs:
       - name: Checkout PennyLane-Qrack
         uses: actions/checkout@v4
 
-      - name: Checkout Qrack
-        uses: actions/checkout@v4
-        with:
-          repository: 'unitaryfund/qrack'
-          path: qrack
-
       - name: Checkout Catalyst
         uses: actions/checkout@v4
         with:
@@ -238,14 +190,6 @@ jobs:
         run: |
           brew install cmake ninja libomp numpy pybind11 pyyaml virtualenv
 
-      - name: Build Qrack MacOS
-        run: |
-          cd qrack
-          mkdir build
-          cd build
-          cmake -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_RDRAND=OFF -DENABLE_OPENCL=OFF -DQBCAPPOW=12 -DCPP_STD=14 ..
-          sudo make install
-
       - name: Build Catalyst MacOS
         run: |
           mkdir catalyst_venv
@@ -262,8 +206,6 @@ jobs:
           source catalyst_venv/bin/activate
           pip3 install --upgrade wheel setuptools
           pip3 install -r requirements.txt
-          export CPLUS_INCLUDE_PATH=/usr/local/include
-          export LIBRARY_PATH=/usr/local/lib/qrack
           pip3 install .
           python3 setup.py bdist_wheel
 
