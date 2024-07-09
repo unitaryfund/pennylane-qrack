@@ -29,15 +29,18 @@ endif
 	mkdir -p qrack/build
 ifeq ($(UNAME_S),Linux)
 	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DQBCAPPOW=12 -DCPP_STD=14 ..; make all; \
-	mkdir qrack/build/include/qrack; cp qrack/include/* qrack/build/include/qrack; cp qrack/build/include/* qrack/build/include/qrack
+	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
+	cd ../../..
 endif
 ifeq ($(UNAME_S),Darwin)
 ifeq ($(UNAME_P),x86_64)
 	cd qrack/build; cmake -DENABLE_OPENCL=OFF -DQBCAPPOW=12 -DCPP_STD=14 ..; make all; \
-	mkdir qrack/build/include/qrack; cp qrack/include/* qrack/build/include/qrack; cp qrack/build/include/* qrack/build/include/qrack
+	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
+	cd ../../..
 else
 	cd qrack/build; cmake -DENABLE_OPENCL=OFF -DQBCAPPOW=12 -DCPP_STD=14 -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_RDRAND=OFF ..; make all; \
-	mkdir qrack/build/include/qrack; cp qrack/include/* qrack/build/include/qrack; cp qrack/build/include/* qrack/build/include/qrack
+	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
+	cd ../../..
 endif
 endif
 endif
