@@ -40,9 +40,9 @@ Check out these demos to see the PennyLane-Qrack plugin in action:
     <div class="row">
 
 .. title-card::
-    :name: Intro to QAOA
-    :description: <img src="https://pennylane.ai/_static/demonstration_assets/regular_demo_thumbnails/thumbnail_intro_to_QAOA.png" width="100%" />
-    :link:  https://pennylane.ai/qml/demos/tutorial_qaoa_intro.html
+    :name: QJIT compilation with Qrack and Catalyst
+    :description: <img src="https://pennylane.ai/_static/large_demo_thumbnails/thumbnail_large_qrack_catalyst_integration.png" width="100%" />
+    :link:  https://pennylane.ai/qml/demos/qrack/
 
 
 .. raw:: html
