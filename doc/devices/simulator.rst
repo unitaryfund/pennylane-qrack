@@ -58,7 +58,7 @@ This is a complete list of boolean options and their meanings:
     |                           |             | (Non-Clifford circuits will fall back to near-Clifford or universal simulation.)   |
     +---------------------------+-------------+------------------------------------------------------------------------------------+
     | `isTensorNetwork`         | True        | Use "tensor network" optimization?                                                 |
-    |                           |             | (Non-Clifford circuits will fall back to near-Clifford or universal simulation.)   |
+    |                           |             | (This option locally simplifies circuits, just-in-time, before running them.)      |
     +---------------------------+-------------+------------------------------------------------------------------------------------+
     | `isSchmidtDecompose`      | True        | Use Schmidt decomposition optimizations?                                           |
     |                           |             |                                                                                    |
@@ -81,4 +81,4 @@ Supported operations
 ~~~~~~~~~~~~~~~~~~~~
 
 The ``qrack.simulator`` device supports all PennyLane
-`operations and observables <https://pennylane.readthedocs.io/en/stable/introduction/operations.html>`_:
+`operations and observables <https://pennylane.readthedocs.io/en/stable/introduction/operations.html>`_.

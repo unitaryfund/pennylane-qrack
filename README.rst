@@ -20,7 +20,7 @@ Features
 Installation
 ============
 
-This plugin requires Python version 3.6 or above, as well as PennyLane and the Qrack library.
+This plugin requires Python version 3.9 or above, as well as PennyLane and the Qrack library.
 
 Installation of this plugin as well as all its Python dependencies can be done using ``pip`` (or ``pip3``, as appropriate):
 
@@ -35,7 +35,7 @@ Dependencies
 
 PennyLane-Qrack requires the following libraries be installed:
 
-* `Python <http://python.org/>`__ >= 3.8
+* `Python <http://python.org/>`__ >= 3.9
 * `Qrack <https://github.com/unitaryfund/qrack>`__ >= 9.0
 
 as well as the following Python packages:
