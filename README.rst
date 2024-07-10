@@ -1,6 +1,8 @@
 PennyLane-Qrack Plugin
 #######################
 
+.. header-start-inclusion-marker-do-not-remove
+
 The PennyLane-Qrack plugin integrates the Qrack quantum computing framework with PennyLane's quantum machine learning capabilities.
 
 This plugin is addapted from the `PennyLane-Qulacs plugin, <https://github.com/PennyLaneAI/pennylane-qulacs>`__ under the Apache License 2.0, with many thanks to the original developers!
@@ -8,6 +10,10 @@ This plugin is addapted from the `PennyLane-Qulacs plugin, <https://github.com/P
 `PennyLane <https://pennylane.readthedocs.io>`__ is a cross-platform Python library for quantum machine learning, automatic differentiation, and optimization of hybrid quantum-classical computations.
 
 `unitaryfund/qrack <https://github.com/unitaryfund/qrack>`__ (formerly **vm6502q/qrack**) is a software library for quantum computing, written in C++ and with GPU support.
+
+`PennyLane Catalyst <https://docs.pennylane.ai/projects/catalyst/en/stable/index.html>`__ provides optional quantum just-in-time (QJIT) compilation, for improved performance.
+
+.. header-end-inclusion-marker-do-not-remove
 
 Features
 ========
