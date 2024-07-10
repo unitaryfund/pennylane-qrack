@@ -170,7 +170,9 @@ jobs:
 
       - name: Build Wheel
         run: |
-          source catalyst_venv/bin/activate
+          mkdir venv
+          python -m venv venv
+          source venv/bin/activate
           pip3 install --upgrade wheel setuptools
           pip3 install -r requirements.txt
           pip3 install .
