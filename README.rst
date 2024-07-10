@@ -22,23 +22,13 @@ Installation
 
 This plugin requires Python version 3.6 or above, as well as PennyLane and the Qrack library.
 
-You can choose to go the `releases <https://github.com/unitaryfund/qrack/releases>`__ page of Qrack to download a packaged artifact for your system and **install it in your system directories** (like `/usr` or `/usr/local` on Linux and UNIX based systems, including Mac), **or** you can opt to **build and install from source**, which might be easier, and this gives you maximum control over build configurations, like choice of CUDA over OpenCL GPU acceleration!
-
-See the Qrack README and documentation for the many build options of qrack, but, after checking out the Qrack repository and entering its root folder, this might be the best and simplest way to build and install Qrack:
-
-.. code-block:: bash
-
-    $ mkdir _build
-    $ cd _build
-    $ cmake -DCPP_STD=14 ..
-    $ make all -j$(nproc --all)
-    $ sudo make install
-
-After installing Qrack, installation of this plugin as well as all its Python dependencies can be done using ``pip`` (or ``pip3``, as appropriate):
+Installation of this plugin as well as all its Python dependencies can be done using ``pip`` (or ``pip3``, as appropriate):
 
 .. code-block:: bash
 
     $ pip3 install pennylane-qrack
+
+This step should automatically build the latest ``main`` branch Qrack library, for Catalyst support, if Catalyst support is available.
 
 Dependencies
 ~~~~~~~~~~~~

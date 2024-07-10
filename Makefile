@@ -24,21 +24,27 @@ help:
 build-deps:
 ifneq ($(OS),Windows_NT)
 ifeq ($(QRACK_PRESENT),)
-	git clone https://github.com/unitaryfund/qrack.git
+	git clone https://github.com/unitaryfund/qrack.git; cd qrack; git checkout f6f5740dea9a5fbc6b6c07fd2ec41378dbad2259; cd ..
 endif
 	mkdir -p qrack/build
 ifeq ($(UNAME_S),Linux)
-	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DQBCAPPOW=12 -DCPP_STD=14 ..; make all; \
-	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
-	cd ../../..
-endif
-ifeq ($(UNAME_S),Darwin)
 ifeq ($(UNAME_P),x86_64)
-	cd qrack/build; cmake -DENABLE_OPENCL=OFF -DQBCAPPOW=12 -DCPP_STD=14 ..; make all; \
+	cd qrack/build; cmake -DQBCAPPOW=12 -DCPP_STD=14 -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON ..; make all; \
 	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
 	cd ../../..
 else
-	cd qrack/build; cmake -DENABLE_OPENCL=OFF -DQBCAPPOW=12 -DCPP_STD=14 -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_RDRAND=OFF ..; make all; \
+	cd qrack/build; cmake -DQBCAPPOW=12 -DCPP_STD=14 -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF ..; make all; \
+	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
+	cd ../../..
+endif
+endif
+ifeq ($(UNAME_S),Darwin)
+ifeq ($(UNAME_P),x86_64)
+	cd qrack/build; cmake -DQBCAPPOW=12 -DCPP_STD=14 ..; make all; \
+	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
+	cd ../../..
+else
+	cd qrack/build; cmake -DQBCAPPOW=12 -DCPP_STD=14 -DENABLE_RDRAND=OFF -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF ..; make all; \
 	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
 	cd ../../..
 endif

@@ -24,7 +24,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 2ec2f9b935278213deb11e2ae93fae803c50b5f0
+          ref: 0b8213d58c8bfbd53dc57842b360fcb5767f3dfa
 
       - name: Prepare Build Environment (Linux)
         run: |
@@ -37,15 +37,7 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools
-
-      - name: Build Catalyst Linux x86-64
-        run: |
-          source venv/bin/activate
-          cd catalyst
-          git submodule update --init --depth=1
-          pip install -r requirements.txt
-          make all
+          python -m pip install wheel setuptools catalyst==0.7
 
       - name: Build Wheel
         run: |
@@ -75,7 +67,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 2ec2f9b935278213deb11e2ae93fae803c50b5f0
+          ref: 0b8213d58c8bfbd53dc57842b360fcb5767f3dfa
 
       - name: Prepare Build Environment (Linux)
         run: |
@@ -88,15 +80,7 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools
-
-      - name: Build Catalyst Linux x86-64
-        run: |
-          source venv/bin/activate
-          cd catalyst
-          git submodule update --init --depth=1
-          pip install -r requirements.txt
-          make all
+          python -m pip install wheel setuptools catalyst==0.7
 
       - name: Build Wheel
         run: |
@@ -126,6 +110,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
+          ref: 0b8213d58c8bfbd53dc57842b360fcb5767f3dfa
 
       - name: Prepare Build Environment (Linux)
         run: |
@@ -140,14 +125,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools
-
-      - name: Build Catalyst Linux x86-64
-        run: |
-          cd catalyst
-          git submodule update --init --depth=1
-          pip install -r requirements.txt
-          make all
+          python -m pip install wheel setuptools catalyst==0.7
 
       - name: Build Wheel
         run: |
@@ -176,12 +154,12 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 2ec2f9b935278213deb11e2ae93fae803c50b5f0
+          ref: 0b8213d58c8bfbd53dc57842b360fcb5767f3dfa
 
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools
+          python -m pip install wheel setuptools catalyst==0.7
 
       - name: Install Homebrew (MacOS)
         uses: Homebrew/actions/setup-homebrew@master
@@ -190,29 +168,18 @@ jobs:
         run: |
           brew install cmake ninja libomp numpy pybind11 pyyaml virtualenv
 
-      - name: Build Catalyst MacOS
-        run: |
-          mkdir catalyst_venv
-          python3 -m venv catalyst_venv
-          source catalyst_venv/bin/activate
-          cd catalyst
-          git submodule update --init --depth=1
-          pip3 install numpy pybind11 pyyaml 
-          pip3 install -r requirements.txt
-          make all
-
       - name: Build Wheel
         run: |
           source catalyst_venv/bin/activate
           pip3 install --upgrade wheel setuptools
           pip3 install -r requirements.txt
           pip3 install .
-          python3 setup.py bdist_wheel
+          python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
+          name: pennylane_qrack-${{ matrix.platform }}
           path: dist/
 
   build_windows:
