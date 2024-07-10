@@ -44,7 +44,7 @@ ifeq ($(UNAME_P),x86_64)
 	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
 	cd ../../..
 else
-	cd qrack/build; cmake -DQBCAPPOW=12 -DCPP_STD=14 -DENABLE_RDRAND=OFF -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF ..; make all; \
+	cd qrack/build; cmake -DQBCAPPOW=12 -DCPP_STD=14 -DENABLE_RDRAND=OFF -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_OPENCL=OFF ..; make all; \
 	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
 	cd ../../..
 endif
