@@ -219,6 +219,8 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
             }
         }
 
+        QRACK_CONST Qrack::complex NEG_1_CMPLX(-ONE_R1, ZERO_R1);
+        QRACK_CONST Qrack::complex NEG_I_CMPLX(ZERO_R1, ONE_R1);
         QRACK_CONST Qrack::complex SQRT1_2_CMPLX(Qrack::SQRT1_2_R1, ZERO_R1);
         QRACK_CONST Qrack::complex NEG_SQRT1_2_CMPLX(-Qrack::SQRT1_2_R1, ZERO_R1);
         QRACK_CONST Qrack::complex SQRTI_2_CMPLX(ZERO_R1, Qrack::SQRT1_2_R1);
@@ -229,8 +231,8 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         QRACK_CONST Qrack::complex ONE_MINUS_I_DIV_2 = Qrack::complex((Qrack::real1)(ONE_R1 / 2), (Qrack::real1)(-ONE_R1 / 2));
 
         QRACK_CONST Qrack::complex pauliX[4U] = { Qrack::ZERO_CMPLX, Qrack::ONE_CMPLX, Qrack::ONE_CMPLX, Qrack::ZERO_CMPLX };
-        QRACK_CONST Qrack::complex pauliY[4U] = { Qrack::ZERO_CMPLX, -Qrack::I_CMPLX, Qrack::I_CMPLX, Qrack::ZERO_CMPLX };
-        QRACK_CONST Qrack::complex pauliZ[4U] = { Qrack::ONE_CMPLX, Qrack::ZERO_CMPLX, Qrack::ZERO_CMPLX, -Qrack::ONE_CMPLX };
+        QRACK_CONST Qrack::complex pauliY[4U] = { Qrack::ZERO_CMPLX, NEG_I_CMPLX, Qrack::I_CMPLX, Qrack::ZERO_CMPLX };
+        QRACK_CONST Qrack::complex pauliZ[4U] = { Qrack::ONE_CMPLX, Qrack::ZERO_CMPLX, Qrack::ZERO_CMPLX, NEG_1_CMPLX };
         QRACK_CONST Qrack::complex sqrtX[4U]{ ONE_PLUS_I_DIV_2, ONE_MINUS_I_DIV_2, ONE_MINUS_I_DIV_2, ONE_PLUS_I_DIV_2 };
         QRACK_CONST Qrack::complex iSqrtX[4U]{ ONE_MINUS_I_DIV_2, ONE_PLUS_I_DIV_2, ONE_PLUS_I_DIV_2, ONE_MINUS_I_DIV_2 };
         QRACK_CONST Qrack::complex hadamard[4U]{ SQRT1_2_CMPLX, SQRT1_2_CMPLX, SQRT1_2_CMPLX, NEG_SQRT1_2_CMPLX };
