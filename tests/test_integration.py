@@ -29,6 +29,26 @@ class TestIntegration:
         assert dev.short_name == "qrack.simulator"
         assert "model" in dev.__class__.capabilities()
 
+    def test_realloc(self):
+        """Test that the Qrack device can reallocate after free."""
+        dev = QrackDevice(2, shots=int(1e6), isOpenCL=False)
+
+        @qjit
+        @qml.qnode(dev)
+        def circuit():
+            qml.Hadamard(wires=0)
+            qml.CNOT(wires=[0, 1])
+            qml.Hadamard(wires=0)
+            qml.CNOT(wires=[0, 1])
+            qml.Hadamard(wires=0)
+            return qml.expval(qml.PauliY(0))
+
+        circuit()
+        try:
+            circuit()
+        except:
+            pytest.fail("Reallocation after free failed")
+
     def test_expectation(self):
         """Test that expectation of a non-trivial circuit is correct."""
         dev = QrackDevice(2, shots=int(1e6), isOpenCL=False)
