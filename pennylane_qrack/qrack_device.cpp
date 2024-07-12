@@ -502,7 +502,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
             }
         }
 
-        qsim = QSIM_CONFIG(mapped_qubits);
+        qsim = QSIM_CONFIG(0U);
     }
 
     QrackDevice &operator=(const QuantumDevice &) = delete;
@@ -516,6 +516,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
                 + std::to_string(allocated_qubits) + " allocated qubits. "
                 + "(Set your wires count high enough, for the device.)");
         }
+        qsim->Allocate(1U);
         auto it = qubit_map.begin();
         std::advance(it, allocated_qubits);
         const QubitIdType label = it->first;
@@ -589,13 +590,13 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         qsim->M(id);
         // Deallocate
         qsim->Dispose(id, 1U);
-        qubit_map.erase(label);
+        --allocated_qubits;
     }
     void ReleaseAllQubits() override
     {
         // State vector is left empty
         qsim = QSIM_CONFIG(0U);
-        qubit_map.clear();
+        allocated_qubits = 0;
     }
     [[nodiscard]] auto GetNumQubits() const -> size_t override
     {
