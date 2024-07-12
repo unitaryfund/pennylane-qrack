@@ -73,7 +73,10 @@ This is a complete list of boolean options and their meanings:
     |                           |             |                                                                                    |
     +---------------------------+-------------+------------------------------------------------------------------------------------+
     | `isHostPointer`           | False       | Allocate GPU buffer from general host heap?                                        |
-    |                           |             | (Might improve performance or reliability, like when accelerating on an Intel HD.) |
+    |                           |             | (Might improve performance or reliability, like when accelerating on an Intel HD)  |
+    +---------------------------+-------------+------------------------------------------------------------------------------------+
+    | `isNoisy`                 | False       | Use noisy simulation?                                                              |
+    |                           |             | (Noise intensity controlled by "QRACK_GATE_DEPOLARIZATION" environment variable)   |
     +---------------------------+-------------+------------------------------------------------------------------------------------+
 
 

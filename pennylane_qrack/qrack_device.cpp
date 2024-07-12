@@ -6,7 +6,7 @@
 #define CL_HPP_TARGET_OPENCL_VERSION 300
 #include "qrack/qfactory.hpp"
 
-#define QSIM_CONFIG(numQubits) Qrack::CreateArrangedLayers(md, sd, sh, bdt, true, tn, true, oc, numQubits, Qrack::ZERO_BCI, nullptr, Qrack::CMPLX_DEFAULT_ARG, false, true, hp)
+#define QSIM_CONFIG(numQubits) Qrack::CreateArrangedLayersFull(nw, md, sd, sh, bdt, true, tn, true, oc, numQubits, Qrack::ZERO_BCI, nullptr, Qrack::CMPLX_DEFAULT_ARG, false, true, hp)
 
 std::string trim(std::string s)
 {
@@ -39,6 +39,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     bool bdt;
     bool oc;
     bool hp;
+    bool nw;
     bitLenInt allocated_qubits;
     bitLenInt mapped_qubits;
     size_t shots;
@@ -389,6 +390,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         , bdt(false)
         , oc(true)
         , hp(false)
+        , nw(false)
         , allocated_qubits(0U)
         , mapped_qubits(0U)
         , shots(1U)
@@ -410,6 +412,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         keyMap["'is_qbdd'"] = 7;
         keyMap["'is_gpu'"] = 8;
         keyMap["'is_host_pointer'"] = 9;
+        keyMap["'is_noisy'"] = 10;
 
         size_t pos;
         while ((pos = kwargs.find(":")) != std::string::npos) {
@@ -490,6 +493,9 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
                     break;
                 case 9:
                     hp = val;
+                    break;
+                case 10:
+                    nw = val;
                     break;
                 default:
                     break;
