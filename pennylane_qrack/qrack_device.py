@@ -167,9 +167,6 @@ class QrackDevice(QubitDevice):
             self._state.swap(i, end - i)
 
     def apply(self, operations, **kwargs):
-        self.apply_operations(operations)
-
-    def apply_operations(self, operations):
         """Apply the circuit operations to the state.
 
         This method serves as an auxiliary method to :meth:`~.QrackDevice.apply`.
