@@ -167,13 +167,7 @@ class QrackDevice(QubitDevice):
             self._state.swap(i, end - i)
 
     def apply(self, operations, **kwargs):
-        rotations = kwargs.get("rotations", [])
-
         self.apply_operations(operations)
-
-        # Rotating the state for measurement in the computational basis
-        if rotations:
-            self.apply_operations(rotations)
 
     def apply_operations(self, operations):
         """Apply the circuit operations to the state.
