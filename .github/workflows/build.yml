@@ -166,6 +166,7 @@ jobs:
 
       - name: Prepare Build Environment (MacOS)
         run: |
+          brew upgrade
           brew install cmake ninja libomp numpy pybind11 pyyaml virtualenv
 
       - name: Build Wheel
@@ -211,6 +212,7 @@ jobs:
 
       - name: Prepare Build Environment (MacOS)
         run: |
+          brew upgrade
           brew install cmake ninja libomp numpy pybind11 pyyaml virtualenv
 
       - name: Build Wheel
@@ -256,6 +258,7 @@ jobs:
 
       - name: Prepare Build Environment (MacOS)
         run: |
+          brew upgrade rustup
           brew install cmake ninja libomp numpy pybind11 pyyaml virtualenv
 
       - name: Build Wheel
