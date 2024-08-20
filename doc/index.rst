@@ -41,7 +41,7 @@ Check out these demos to see the PennyLane-Qrack plugin in action:
 
 .. title-card::
     :name: QJIT compilation with Qrack and Catalyst
-    :description: <img src="https://pennylane.ai/_static/large_demo_thumbnails/thumbnail_large_qrack_catalyst_integration.png" width="100%" />
+    :description: <img src="https://pennylane.ai/_static/demo_thumbnails/regular_demo_thumbnails/thumbnail_qrack_catalyst_integration.png" width="100%" />
     :link:  https://pennylane.ai/qml/demos/qrack/
 
 
