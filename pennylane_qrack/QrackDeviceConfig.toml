@@ -105,6 +105,7 @@ Prod = {}
 Expval = {}
 Var = {}
 Probs = {}
+State  = { condition = [ "analytic" ] }
 Sample = { condition = [ "finiteshots" ] }
 Counts = { condition = [ "finiteshots" ] }
 
