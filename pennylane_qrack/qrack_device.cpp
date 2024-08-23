@@ -425,6 +425,9 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
                 if (kwargs.find("<Wires = []>") != kwargs.find("<Wires = []>,")) {
                     continue;
                 }
+                if (kwargs.find("Wires([])") != kwargs.find("Wires([]),")) {
+                    continue;
+                }
 
                 // Handle if integer
                 pos = kwargs.find(",");
@@ -446,7 +449,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
                 }
 
                 // Handles if Wires object
-                pos = kwargs.find("]>");
+                pos = kwargs.find("]");
                 std::string value = kwargs.substr(0, pos);
                 kwargs.erase(0, pos + 3U);
                 size_t p = value.find("[");
