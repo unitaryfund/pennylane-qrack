@@ -399,15 +399,14 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         kwargs = trim(kwargs);
 
         std::map<std::string, int> keyMap;
-        keyMap["'shots'"] = 1;
-        keyMap["'is_hybrid_stabilizer'"] = 2;
-        keyMap["'is_tensor_network'"] = 3;
-        keyMap["'is_schmidt_decomposed'"] = 4;
-        keyMap["'is_schmidt_decomposition_parallel'"] = 5;
-        keyMap["'is_qbdd'"] = 6;
-        keyMap["'is_gpu'"] = 7;
-        keyMap["'is_host_pointer'"] = 8;
-        keyMap["'is_noisy'"] = 9;
+        keyMap["'is_hybrid_stabilizer'"] = 1;
+        keyMap["'is_tensor_network'"] = 2;
+        keyMap["'is_schmidt_decomposed'"] = 3;
+        keyMap["'is_schmidt_decomposition_parallel'"] = 4;
+        keyMap["'is_qbdd'"] = 5;
+        keyMap["'is_gpu'"] = 6;
+        keyMap["'is_host_pointer'"] =7;
+        keyMap["'is_noisy'"] = 8;
 
         size_t pos;
         while ((pos = kwargs.find(":")) != std::string::npos) {
@@ -419,32 +418,27 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
             const bool val = (value == "True");
             switch (keyMap[key]) {
                 case 1:
-                    if (value != "None") {
-                        shots = std::stoi(value);
-                    }
-                    break;
-                case 2:
                     sh = val;
                     break;
-                case 3:
+                case 2:
                     tn = val;
                     break;
-                case 4:
+                case 3:
                     sd = val;
                     break;
-                case 5:
+                case 4:
                     md = val;
                     break;
-                case 6:
+                case 5:
                     bdt = val;
                     break;
-                case 7:
+                case 6:
                     oc =  val;
                     break;
-                case 8:
+                case 7:
                     hp = val;
                     break;
-                case 9:
+                case 8:
                     nw = val;
                     break;
                 default:
