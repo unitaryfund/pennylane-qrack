@@ -40,8 +40,6 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     bool oc;
     bool hp;
     bool nw;
-    bitLenInt allocated_qubits;
-    bitLenInt mapped_qubits;
     size_t shots;
     Qrack::QInterfacePtr qsim;
     std::map<QubitIdType, bitLenInt> qubit_map;
@@ -391,8 +389,6 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         , oc(true)
         , hp(false)
         , nw(false)
-        , allocated_qubits(0U)
-        , mapped_qubits(0U)
         , shots(1U)
         , qsim(nullptr)
     {
@@ -403,101 +399,52 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         kwargs = trim(kwargs);
 
         std::map<std::string, int> keyMap;
-        keyMap["'wires'"] = 1;
-        keyMap["'shots'"] = 2;
-        keyMap["'is_hybrid_stabilizer'"] = 3;
-        keyMap["'is_tensor_network'"] = 4;
-        keyMap["'is_schmidt_decomposed'"] = 5;
-        keyMap["'is_schmidt_decomposition_parallel'"] = 6;
-        keyMap["'is_qbdd'"] = 7;
-        keyMap["'is_gpu'"] = 8;
-        keyMap["'is_host_pointer'"] = 9;
-        keyMap["'is_noisy'"] = 10;
+        keyMap["'shots'"] = 1;
+        keyMap["'is_hybrid_stabilizer'"] = 2;
+        keyMap["'is_tensor_network'"] = 3;
+        keyMap["'is_schmidt_decomposed'"] = 4;
+        keyMap["'is_schmidt_decomposition_parallel'"] = 5;
+        keyMap["'is_qbdd'"] = 6;
+        keyMap["'is_gpu'"] = 7;
+        keyMap["'is_host_pointer'"] = 8;
+        keyMap["'is_noisy'"] = 9;
 
         size_t pos;
         while ((pos = kwargs.find(":")) != std::string::npos) {
             std::string key = trim(kwargs.substr(0, pos));
             kwargs.erase(0, pos + 1U);
-
-            if (key == "'wires'") {
-                // Handle if empty
-                // We look for ',' or npos, to respect other Wires value kwargs
-                if (kwargs.find("<Wires = []>") != kwargs.find("<Wires = []>,")) {
-                    continue;
-                }
-                if (kwargs.find("Wires([])") != kwargs.find("Wires([]),")) {
-                    continue;
-                }
-
-                // Handle if integer
-                pos = kwargs.find(",");
-                bool isInt = true;
-                for (size_t i = 0; i < pos; ++i) {
-                    if ((kwargs[i] != ' ') && !isdigit(kwargs[i])) {
-                        isInt = false;
-                        break;
-                    }
-                }
-                if (isInt) {
-                    mapped_qubits = stoi(trim(kwargs.substr(0, pos)));
-                    for (size_t i = 0U; i < mapped_qubits; ++i) {
-                        qubit_map[i] = i;
-                    }
-                    kwargs.erase(0, pos + 1U);
-
-                    continue;
-                }
-
-                // Handles if Wires object
-                pos = kwargs.find("]");
-                std::string value = kwargs.substr(0, pos);
-                kwargs.erase(0, pos + 3U);
-                size_t p = value.find("[");
-                value.erase(0, p + 1U);
-                size_t q;
-                while ((q = value.find(",")) != std::string::npos) {
-                    qubit_map[(QubitIdType)stoi(trim(value.substr(0, q)))] = mapped_qubits;
-                    ++mapped_qubits;
-                    value.erase(0, q + 1U);
-                }
-                qubit_map[stoi(trim(value))] = mapped_qubits;
-                ++mapped_qubits;
-
-                continue;
-            }
-
             pos = kwargs.find(",");
             std::string value = trim(kwargs.substr(0, pos));
             kwargs.erase(0, pos + 1U);
             const bool val = (value == "True");
             switch (keyMap[key]) {
-                case 2:
+                case 1:
                     if (value != "None") {
                         shots = std::stoi(value);
                     }
                     break;
-                case 3:
+                case 2:
                     sh = val;
                     break;
-                case 4:
+                case 3:
                     tn = val;
                     break;
-                case 5:
+                case 4:
                     sd = val;
                     break;
-                case 6:
+                case 5:
                     md = val;
                     break;
-                case 7:
+                case 6:
                     bdt = val;
                     break;
-                case 8:
+                case 7:
                     oc =  val;
                     break;
-                case 9:
+                case 8:
                     hp = val;
                     break;
-                case 10:
+                case 9:
                     nw = val;
                     break;
                 default:
@@ -514,16 +461,8 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     QrackDevice &operator=(QuantumDevice &&) = delete;
 
     auto AllocateQubit() -> QubitIdType override {
-        if (allocated_qubits >= qubit_map.size()) {
-            throw std::runtime_error("Catalyst has requested more qubits than exist in device, with "
-                + std::to_string(allocated_qubits) + " allocated qubits. "
-                + "(Set your wires count high enough, for the device.)");
-        }
+        const QubitIdType label = qsim->GetQubitCount();
         qsim->Allocate(1U);
-        auto it = qubit_map.begin();
-        std::advance(it, allocated_qubits);
-        const QubitIdType label = it->first;
-        ++allocated_qubits;
         return label;
     }
     auto AllocateQubits(size_t num_qubits) -> std::vector<QubitIdType> override {
@@ -593,13 +532,11 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         qsim->M(id);
         // Deallocate
         qsim->Dispose(id, 1U);
-        --allocated_qubits;
     }
     void ReleaseAllQubits() override
     {
         // State vector is left empty
         qsim = QSIM_CONFIG(0U);
-        allocated_qubits = 0;
     }
     [[nodiscard]] auto GetNumQubits() const -> size_t override
     {
