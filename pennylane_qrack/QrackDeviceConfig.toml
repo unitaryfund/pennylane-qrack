@@ -102,9 +102,9 @@ Prod = {}
 
 [measurement_processes]
 
-Expval = {}
-Var = {}
-Probs = {}
+Expval = { condition = [ "analytic" ] }
+Var = { condition = [ "analytic" ] }
+Probs = { condition = [ "analytic" ] }
 State  = { condition = [ "analytic" ] }
 Sample = { condition = [ "finiteshots" ] }
 Counts = { condition = [ "finiteshots" ] }
