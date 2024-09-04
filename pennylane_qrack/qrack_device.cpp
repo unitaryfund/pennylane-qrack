@@ -543,7 +543,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     void PrintState() override
     {
         const size_t numQubits = qsim->GetQubitCount();
-        const size_t maxQPower = (size_t)((BIG_INTEGER_WORD)qsim->GetMaxQPower());
+        const size_t maxQPower = (size_t)((uint64_t)qsim->GetMaxQPower());
         const size_t maxLcv = maxQPower - 1U;
         size_t idx = 0U;
         std::cout << "*** State-Vector of Size " << maxQPower << " ***" << std::endl;
@@ -642,7 +642,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     }
     void State(DataView<std::complex<double>, 1>& sv) override
     {
-        RT_FAIL_IF(sv.size() != (size_t)((BIG_INTEGER_WORD)qsim->GetMaxQPower()), "Invalid size for the pre-allocated state vector");
+        RT_FAIL_IF(sv.size() != (size_t)((uint64_t)qsim->GetMaxQPower()), "Invalid size for the pre-allocated state vector");
         reverseWires();
 #if FPPOW == 6
         qsim->GetQuantumState(&(*(sv.begin())));
@@ -655,7 +655,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     }
     void Probs(DataView<double, 1>& p) override
     {
-        RT_FAIL_IF(p.size() != (size_t)((BIG_INTEGER_WORD)qsim->GetMaxQPower()), "Invalid size for the pre-allocated probabilities vector");
+        RT_FAIL_IF(p.size() != (size_t)((uint64_t)qsim->GetMaxQPower()), "Invalid size for the pre-allocated probabilities vector");
         reverseWires();
 #if FPPOW == 6
         qsim->GetProbs(&(*(p.begin())));
@@ -668,7 +668,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     }
     void PartialProbs(DataView<double, 1> &p, const std::vector<QubitIdType> &wires) override
     {
-        RT_FAIL_IF((size_t)((BIG_INTEGER_WORD)Qrack::pow2(wires.size())) != p.size(), "Invalid size for the pre-allocated probabilities vector");
+        RT_FAIL_IF((size_t)((uint64_t)Qrack::pow2(wires.size())) != p.size(), "Invalid size for the pre-allocated probabilities vector");
         auto &&dev_wires = getDeviceWires(wires);
         std::reverse(dev_wires.begin(), dev_wires.end());
 #if FPPOW == 6
