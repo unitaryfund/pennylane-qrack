@@ -457,6 +457,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     auto AllocateQubit() -> QubitIdType override {
         const QubitIdType label = qsim->GetQubitCount();
         qsim->Allocate(1U);
+        qubit_map[label] = (bitLenInt)label;
         return label;
     }
     auto AllocateQubits(size_t num_qubits) -> std::vector<QubitIdType> override {
