@@ -24,27 +24,27 @@ help:
 build-deps:
 ifneq ($(OS),Windows_NT)
 ifeq ($(QRACK_PRESENT),)
-	git clone https://github.com/unitaryfund/qrack.git; cd qrack; git checkout f20f0fc06b29fe4670d578df7cbc2f8f84db87cc; cd ..
+	git clone https://github.com/unitaryfund/qrack.git; cd qrack; git checkout 31ecfddd6667653c9ce65848aad478f089b9127c; cd ..
 endif
 	mkdir -p qrack/build
 ifeq ($(UNAME_S),Linux)
 ifeq ($(UNAME_P),x86_64)
-	cd qrack/build; cmake -DQBCAPPOW=7 -DCPP_STD=14 -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON ..; make all; \
+	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON ..; make all; \
 	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
 	cd ../../..
 else
-	cd qrack/build; cmake -DQBCAPPOW=7 -DCPP_STD=14 -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF ..; make all; \
+	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF ..; make all; \
 	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
 	cd ../../..
 endif
 endif
 ifeq ($(UNAME_S),Darwin)
 ifeq ($(UNAME_P),x86_64)
-	cd qrack/build; cmake -DQBCAPPOW=7 -DCPP_STD=14 ..; make all; \
+	cd qrack/build; cmake ..; make all; \
 	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
 	cd ../../..
 else
-	cd qrack/build; cmake -DQBCAPPOW=7 -DCPP_STD=14 -DENABLE_RDRAND=OFF -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_OPENCL=OFF ..; make all; \
+	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_OPENCL=OFF ..; make all; \
 	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
 	cd ../../..
 endif
