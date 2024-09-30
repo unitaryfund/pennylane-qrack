@@ -497,6 +497,9 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     {
         QrackObservable o;
         for (const ObsIdType& id : obs) {
+            if (id >= obs_cache.size()) {
+                throw std::invalid_argument("Observable ID not in device cache: " + std::to_string(id));
+            }
             const QrackObservable& i = obs_cache[id];
             o.obs.insert(o.obs.end(), i.obs.begin(), i.obs.end());
             o.wires.insert(o.wires.end(), i.wires.begin(), i.wires.end());
