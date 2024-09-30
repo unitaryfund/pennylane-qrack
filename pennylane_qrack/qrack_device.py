@@ -144,6 +144,23 @@ class QrackDevice(QubitDevice):
         os.path.dirname(sys.modules[__name__].__file__) + "/QrackDeviceConfig.toml"
     )
 
+    # Use "hybrid" stabilizer optimization? (Default is "true"; non-Clifford circuits will fall back to near-Clifford or universal simulation)
+    isStabilizerHybrid = True
+    # Use "tensor network" optimization? (Default is "true"; prevents dynamic qubit de-allocation; might function sub-optimally with "hybrid" stabilizer enabled)
+    isTensorNetwork = True
+    # Use Schmidt decomposition optimizations? (Default is "true")
+    isSchmidtDecompose = True
+    # Distribute Schmidt-decomposed qubit subsystems to multiple GPUs or accelerators, if available? (Default is "true"; mismatched device capacities might hurt overall performance)
+    isSchmidtDecomposeMulti = True
+    # Use "quantum binary decision diagram" ("QBDD") methods? (Default is "false"; note that QBDD is CPU-only)
+    isBinaryDecisionTree = False
+    # Use GPU acceleration? (Default is "true")
+    isOpenCL = True
+    # Allocate GPU buffer from general host heap? (Default is "false"; "true" might improve performance or reliability in certain cases, like if using an Intel HD as accelerator)
+    isHostPointer = False
+    # Use noisy simulation? (Default is "false"; depolarizing noise intensity can be controlled by "QRACK_GATE_DEPOLARIZATION" environment variable)
+    isNoisy = False
+
     @staticmethod
     def get_c_interface():
         shared_lib_path = os.path.dirname(sys.modules[__name__].__file__) + "/libqrack_device.so"
@@ -157,8 +174,32 @@ class QrackDevice(QubitDevice):
         return ("QrackDevice", shared_lib_path)
 
     def __init__(self, wires=0, shots=None, **kwargs):
+        options = dict(kwargs)
+        if 'isStabilizerHybrid' in options:
+            self.isStabilizerHybrid = options['isStabilizerHybrid']
+        if 'isTensorNetwork' in options:
+            self.isTensorNetwork = options['isTensorNetwork']
+        if 'isSchmidtDecompose' in options:
+            self.isSchmidtDecompose = options['isSchmidtDecompose']
+        if 'isBinaryDecisionTree' in options:
+            self.isBinaryDecisionTree = options['isBinaryDecisionTree']
+        if 'isOpenCL' in options:
+            self.isOpenCL = options['isOpenCL']
+        if 'isHostPointer' in options:
+            self.isHostPointer = options['isHostPointer']
+        if 'isNoisy' in options:
+            self.isNoisy = options['isNoisy']
         super().__init__(wires=wires, shots=shots)
-        self._state = QrackSimulator(self.num_wires, **kwargs)
+        self._state = QrackSimulator(
+            self.num_wires,
+            isStabilizerHybrid = self.isStabilizerHybrid,
+            isTensorNetwork=self.isTensorNetwork,
+            isSchmidtDecompose=self.isSchmidtDecompose,
+            isBinaryDecisionTree=self.isBinaryDecisionTree,
+            isOpenCL=self.isOpenCL,
+            isHostPointer=self.isHostPointer,
+            isNoisy=self.isNoisy
+        )
 
     def _reverse_state(self):
         end = self.num_wires - 1
