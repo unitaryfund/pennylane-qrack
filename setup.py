@@ -33,7 +33,7 @@ with open("./pennylane_qrack/_version.py") as f:
 
 requirements = [
     "pennylane>=0.32",
-    "pyqrack>=1.28.0",
+    "pyqrack>=1.30.0",
     "numpy>=1.16"
 ]
 
