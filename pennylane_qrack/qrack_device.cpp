@@ -636,11 +636,17 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     }
     auto Expval(ObsIdType id) -> double override
     {
+        if (id >= obs_cache.size()) {
+            throw std::invalid_argument("Observable ID not in device cache: " + std::to_string(id));
+        }
         const QrackObservable& obs = obs_cache[id];
         return qsim->ExpectationPauliAll(obs.wires, obs.obs);
     }
     auto Var(ObsIdType id) -> double override
     {
+        if (id >= obs_cache.size()) {
+            throw std::invalid_argument("Observable ID not in device cache: " + std::to_string(id));
+        }
         const QrackObservable& obs = obs_cache[id];
         return qsim->VariancePauliAll(obs.wires, obs.obs);
     }
