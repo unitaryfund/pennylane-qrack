@@ -489,7 +489,12 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
             default:
                 break;
         }
-        obs_cache.push_back(QrackObservable({ basis }, dev_wires));
+        std::vector<Qrack::Pauli> bases;
+        bases.reserve(dev_wires.size());
+        for (size_t i = 0U; i < dev_wires.size(); ++i) {
+            bases.emplace_back(basis);
+        }
+        obs_cache.push_back(QrackObservable(bases, dev_wires));
 
         return obs_cache.size() - 1U;
     }
