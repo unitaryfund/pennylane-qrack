@@ -24,7 +24,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 2cb2fc87e483042cadf8fc0744f574a59b71be84
+          ref: 2c45243b0b848b30b979f7840f969f6378019dd0
 
       - name: Prepare Build Environment (Linux)
         run: |
@@ -67,7 +67,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 2cb2fc87e483042cadf8fc0744f574a59b71be84
+          ref: 2c45243b0b848b30b979f7840f969f6378019dd0
 
       - name: Prepare Build Environment (Linux)
         run: |
@@ -110,7 +110,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 2cb2fc87e483042cadf8fc0744f574a59b71be84
+          ref: 2c45243b0b848b30b979f7840f969f6378019dd0
 
       - name: Prepare Build Environment (Linux)
         run: |
@@ -154,7 +154,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 2cb2fc87e483042cadf8fc0744f574a59b71be84
+          ref: 2c45243b0b848b30b979f7840f969f6378019dd0
 
       - name: Install Python Dependencies
         run: |
@@ -200,7 +200,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 2cb2fc87e483042cadf8fc0744f574a59b71be84
+          ref: 2c45243b0b848b30b979f7840f969f6378019dd0
 
       - name: Install Python Dependencies
         run: |
@@ -246,7 +246,7 @@ jobs:
         with:
           repository: 'PennyLaneAI/catalyst'
           path: catalyst
-          ref: 2cb2fc87e483042cadf8fc0744f574a59b71be84
+          ref: 2c45243b0b848b30b979f7840f969f6378019dd0
 
       - name: Install Python Dependencies
         run: |
