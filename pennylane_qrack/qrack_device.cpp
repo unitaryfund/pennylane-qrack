@@ -500,6 +500,9 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     }
     auto TensorObservable(const std::vector<ObsIdType> &obs) -> ObsIdType override
     {
+        if (!obs.size()) {
+            return -1;
+        }
         QrackObservable o;
         for (const ObsIdType& id : obs) {
             if (id >= obs_cache.size()) {
