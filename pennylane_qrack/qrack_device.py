@@ -158,8 +158,8 @@ class QrackDevice(QubitDevice):
     isOpenCL = True
     # Allocate GPU buffer from general host heap? (Default is "false"; "true" might improve performance or reliability in certain cases, like if using an Intel HD as accelerator)
     isHostPointer = False
-    # Use noisy simulation? (Default is "false"; depolarizing noise intensity can be controlled by "QRACK_GATE_DEPOLARIZATION" environment variable)
-    isNoisy = False
+    # Noise parameter. (Default is "0"; depolarizing noise intensity can also be controlled by "QRACK_GATE_DEPOLARIZATION" environment variable)
+    noise = 0
 
     @staticmethod
     def get_c_interface():
@@ -187,8 +187,8 @@ class QrackDevice(QubitDevice):
             self.isOpenCL = options['isOpenCL']
         if 'isHostPointer' in options:
             self.isHostPointer = options['isHostPointer']
-        if 'isNoisy' in options:
-            self.isNoisy = options['isNoisy']
+        if 'noise' in options:
+            self.noise = options['noise']
         super().__init__(wires=wires, shots=shots)
         self._state = QrackSimulator(
             self.num_wires,
@@ -198,7 +198,7 @@ class QrackDevice(QubitDevice):
             isBinaryDecisionTree=self.isBinaryDecisionTree,
             isOpenCL=self.isOpenCL,
             isHostPointer=self.isHostPointer,
-            isNoisy=self.isNoisy
+            noise = self.noise
         )
 
     def _reverse_state(self):

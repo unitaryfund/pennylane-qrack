@@ -406,9 +406,10 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         keyMap["'is_qbdd'"] = 5;
         keyMap["'is_gpu'"] = 6;
         keyMap["'is_host_pointer'"] =7;
-        keyMap["'is_noisy'"] = 8;
+        keyMap["'noise'"] = 8;
 
         size_t pos;
+        real1_f noiseParam = 0;
         while ((pos = kwargs.find(":")) != std::string::npos) {
             std::string key = trim(kwargs.substr(0, pos));
             kwargs.erase(0, pos + 1U);
@@ -439,7 +440,8 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
                     hp = val;
                     break;
                 case 8:
-                    nw = val;
+                    noiseParam = std::stof(value)
+                    nw = noiseParam > ZERO_R1;
                     break;
                 default:
                     break;
@@ -447,6 +449,9 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         }
 
         qsim = QSIM_CONFIG(0U);
+        if (noiseParam > ZERO_R1) {
+            qsim->SetNoiseParameter(noiseParam);
+        }
     }
 
     QrackDevice &operator=(const QuantumDevice &) = delete;
