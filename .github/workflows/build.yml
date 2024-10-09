@@ -259,7 +259,13 @@ jobs:
       - name: Prepare Build Environment (MacOS)
         run: |
           brew upgrade rustup
-          brew install cmake ninja libomp numpy virtualenv python@3.12
+          brew install cmake ninja libomp numpy virtualenv
+          sudo rm /usr/local/bin/2to3-3.12
+          sudo rm /usr/local/bin/idle3.12
+          sudo rm /usr/local/bin/pydoc3.12
+          sudo rm /usr/local/bin/python3.12
+          sudo rm /usr/local/bin/python3.12-config
+          brew install python@3.12
 
       - name: Build Wheel
         run: |
@@ -305,7 +311,7 @@ jobs:
       - name: Prepare Build Environment (MacOS)
         run: |
           brew upgrade rustup
-          brew install cmake ninja libomp numpy python@3.12
+          brew install cmake ninja libomp numpy
           sudo rm /usr/local/bin/2to3
           sudo rm /usr/local/bin/2to3-3.12
           sudo rm /usr/local/bin/idle3
@@ -316,7 +322,7 @@ jobs:
           sudo rm /usr/local/bin/python3-config
           sudo rm /usr/local/bin/python3.12
           sudo rm /usr/local/bin/python3.12-config
-          brew install virtualenv
+          brew install virtualenv python@3.12
 
       - name: Build Wheel
         run: |
