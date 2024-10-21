@@ -24,7 +24,7 @@ import itertools as it
 
 import numpy as np
 
-from pennylane import QubitDevice, DeviceError
+from pennylane import QubitDevice, DeviceError, QuantumFunctionError
 from pennylane.ops import (
     QubitStateVector,
     BasisState,
@@ -649,7 +649,7 @@ class QrackDevice(QubitDevice):
 
     def generate_samples(self):
         if self.shots is None:
-            raise qml.QuantumFunctionError(
+            raise QuantumFunctionError(
                 "The number of shots has to be explicitly set on the device "
                 "when using sample-based measurements."
             )
