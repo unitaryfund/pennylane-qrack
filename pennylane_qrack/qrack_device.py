@@ -673,14 +673,12 @@ class QrackDevice(QubitDevice):
             )
 
         if self.noise != 0:
-            self._samples = []
+            samples = []
             for _ in range(self.shots):
                 self._state.reset_all()
                 self._apply()
-                self._samples.append(self._generate_sample())
-            self._samples = QubitDevice.states_to_binary(
-                np.array([self._generate_sample()]), self.num_wires
-            )
+                samples.append(self._generate_sample())
+            self._samples = QubitDevice.states_to_binary(np.array(samples), self.num_wires)
             self._circuit = []
 
             return self._samples
