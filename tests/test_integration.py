@@ -17,6 +17,7 @@ import pennylane as qml
 from pennylane_qrack.qrack_device import QrackDevice
 from catalyst import qjit
 
+
 class TestIntegration:
     """Some basic integration tests."""
 

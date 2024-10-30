@@ -260,9 +260,7 @@ class TestStateApply:
 
     @pytest.mark.parametrize("device_wires", [3, 4, 5])
     @pytest.mark.parametrize("op_wires", [[0], [2], [0, 1], [1, 0], [2, 0]])
-    def test_qubit_state_vector_on_wires_subset(
-        self, init_state, device_wires, op_wires, tol
-    ):
+    def test_qubit_state_vector_on_wires_subset(self, init_state, device_wires, op_wires, tol):
         """Test QubitStateVector application on a subset of device wires"""
         dev = QrackDevice(device_wires, isOpenCL=False)
         state = init_state(len(op_wires))
@@ -314,7 +312,7 @@ class TestStateApply:
             qml.StatePrep(state, wires=[0])
             qml.apply(op)
             return qml.probs()
-        
+
         dev._obs_queue = []
 
         res = circuit()
@@ -352,7 +350,7 @@ class TestStateApply:
             qml.StatePrep(state, wires=[0])
             qml.apply(op)
             return qml.probs()
-        
+
         dev._obs_queue = []
 
         res = circuit()
@@ -364,9 +362,7 @@ class TestStateApply:
     @pytest.mark.parametrize("theta", [0.5432, -0.232])
     @pytest.mark.parametrize("omega", [1.213, -0.221])
     @pytest.mark.parametrize("op,func", single_qubit_three_param)
-    def test_single_qubit_three_parameters(
-        self, init_state, op, func, phi, theta, omega, tol
-    ):
+    def test_single_qubit_three_parameters(self, init_state, op, func, phi, theta, omega, tol):
         """Test PauliX application"""
         dev = QrackDevice(1, isOpenCL=False)
         state = init_state(1)
@@ -383,14 +379,13 @@ class TestStateApply:
     @pytest.mark.parametrize("theta", [0.5432, -0.232])
     @pytest.mark.parametrize("omega", [1.213, -0.221])
     @pytest.mark.parametrize("op,func", single_qubit_three_param)
-    def test_single_qubit_three_parameters_qjit(
-        self, init_state, op, func, phi, theta, omega, tol
-    ):
+    def test_single_qubit_three_parameters_qjit(self, init_state, op, func, phi, theta, omega, tol):
         """Test PauliX application"""
         dev = QrackDevice(1, isOpenCL=False)
         state = init_state(1)
 
         op.data = [phi, theta, omega]
+
         @qjit
         @qml.qnode(dev)
         def circuit():
@@ -430,6 +425,7 @@ class TestStateApply:
             qml.StatePrep(state, wires=[0, 1])
             qml.apply(op)
             return qml.probs()
+
         dev._obs_queue = []
 
         res = circuit()
@@ -462,12 +458,14 @@ class TestStateApply:
         state = init_state(N)
 
         op = qml.QubitUnitary(mat, wires=list(range(N)))
+
         @qjit
         @qml.qnode(dev)
         def circuit():
             qml.StatePrep(state, wires=list(range(N)))
             qml.apply(op)
             return qml.probs()
+
         dev._obs_queue = []
 
         res = circuit()
@@ -506,6 +504,7 @@ class TestStateApply:
             qml.StatePrep(state, wires=[0, 1, 2])
             qml.apply(op)
             return qml.probs()
+
         dev._obs_queue = []
 
         res = circuit()
@@ -549,6 +548,7 @@ class TestStateApply:
         state = init_state(2)
 
         op.data = [theta]
+
         @qjit
         @qml.qnode(dev)
         def circuit():
@@ -567,9 +567,7 @@ class TestStateApply:
     @pytest.mark.parametrize("theta", [0.5432, -0.232])
     @pytest.mark.parametrize("omega", [1.213, -0.221])
     @pytest.mark.parametrize("op,func", two_qubit_three_param)
-    def test_two_qubit_three_parameters(
-        self, init_state, op, func, phi, theta, omega, tol
-    ):
+    def test_two_qubit_three_parameters(self, init_state, op, func, phi, theta, omega, tol):
         """Test parametrized two qubit gates application"""
         dev = QrackDevice(2, isOpenCL=False)
         state = init_state(2)
@@ -588,9 +586,7 @@ class TestStateApply:
         """Test that apply fails for incorrect state preparation."""
         dev = QrackDevice(2, isOpenCL=False)
 
-        with pytest.raises(
-            ValueError, match="Sum of amplitudes-squared does not equal one."
-        ):
+        with pytest.raises(ValueError, match="Sum of amplitudes-squared does not equal one."):
             dev.apply([qml.QubitStateVector(np.array([1, -1]), wires=[0])])
 
         with pytest.raises(

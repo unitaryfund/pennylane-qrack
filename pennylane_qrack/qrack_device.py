@@ -189,6 +189,8 @@ class QrackDevice(QubitDevice):
             self.isHostPointer = options["isHostPointer"]
         if "noise" in options:
             self.noise = options["noise"]
+            if self.noise != 0 and shots is None:
+                raise ValueError("Shots must be finite for noisy simulation (not analytical mode).")
         super().__init__(wires=wires, shots=shots)
         self._state = QrackSimulator(
             self.num_wires,
@@ -200,6 +202,7 @@ class QrackDevice(QubitDevice):
             isHostPointer=self.isHostPointer,
             noise=self.noise,
         )
+        self._circuit = []
 
     def _reverse_state(self):
         end = self.num_wires - 1
@@ -216,7 +219,14 @@ class QrackDevice(QubitDevice):
             operations (List[pennylane.Operation]): operations to be applied
         """
 
-        for i, op in enumerate(operations):
+        self._circuit = self._circuit + operations
+        if self.noise == 0:
+            self._apply()
+            self._circuit = []
+        # else: Defer application until shots or expectation values are requested
+
+    def _apply(self):
+        for op in self._circuit:
             if isinstance(op, QubitStateVector):
                 self._apply_qubit_state_vector(op)
             elif isinstance(op, BasisState):
@@ -647,6 +657,14 @@ class QrackDevice(QubitDevice):
         # estimate the ev
         return np.mean(self.sample(observable))
 
+    def _generate_sample(self):
+        rev_sample = self._state.m_all()
+        sample = 0
+        for i in range(self.num_wires):
+            if (rev_sample & (1 << i)) > 0:
+                sample |= 1 << (self.num_wires - (i + 1))
+        return sample
+
     def generate_samples(self):
         if self.shots is None:
             raise QuantumFunctionError(
@@ -654,13 +672,23 @@ class QrackDevice(QubitDevice):
                 "when using sample-based measurements."
             )
 
+        if self.noise != 0:
+            self._samples = []
+            for _ in range(self.shots):
+                self._state.reset_all()
+                self._apply()
+                self._samples.append(self._generate_sample())
+            self._samples = QubitDevice.states_to_binary(
+                np.array([self._generate_sample()]), self.num_wires
+            )
+            self._circuit = []
+
+            return self._samples
+
         if self.shots == 1:
-            rev_sample = self._state.m_all()
-            sample = 0
-            for i in range(self.num_wires):
-                if (rev_sample & (1 << i)) > 0:
-                    sample |= 1 << (self.num_wires - (i + 1))
-            self._samples = QubitDevice.states_to_binary(np.array([sample]), self.num_wires)
+            self._samples = QubitDevice.states_to_binary(
+                np.array([self._generate_sample()]), self.num_wires
+            )
 
             return self._samples
 
