@@ -19,10 +19,11 @@ import subprocess
 from setuptools import setup
 from setuptools.command.build_py import build_py
 
+
 class Build(build_py):
     def run(self):
         protoc_command = ["make", "build-deps"]
-        if os.name != 'nt':
+        if os.name != "nt":
             if subprocess.call(protoc_command) != 0:
                 sys.exit(-1)
         super().run()
@@ -31,11 +32,7 @@ class Build(build_py):
 with open("./pennylane_qrack/_version.py") as f:
     (version,) = re.findall('__version__ = "(.*)"', f.read())
 
-requirements = [
-    "pennylane>=0.32",
-    "pyqrack>=1.30.0",
-    "numpy>=1.16"
-]
+requirements = ["pennylane>=0.32", "pyqrack>=1.30.0", "numpy>=1.16"]
 
 info = {
     "name": "pennylane-qrack",
@@ -45,11 +42,9 @@ info = {
     "url": "http://github.com/vm6502q",
     "license": "Apache License 2.0",
     "packages": ["pennylane_qrack"],
-    "cmdclass": { 'build_py': Build },
+    "cmdclass": {"build_py": Build},
     "entry_points": {
-        "pennylane.plugins": [
-            "qrack.simulator = pennylane_qrack.qrack_device:QrackDevice"
-        ]
+        "pennylane.plugins": ["qrack.simulator = pennylane_qrack.qrack_device:QrackDevice"]
     },
     "description": "PennyLane plugin for Qrack.",
     "long_description": open("README.rst").read(),

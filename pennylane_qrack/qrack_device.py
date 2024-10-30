@@ -188,7 +188,7 @@ class QrackDevice(QubitDevice):
         if "isHostPointer" in options:
             self.isHostPointer = options["isHostPointer"]
         if "noise" in options:
-            self.noise = options['noise']
+            self.noise = options["noise"]
             if self.noise != 0 and shots is None:
                 raise ValueError("Shots must be finite for noisy simulation (not analytical mode).")
         super().__init__(wires=wires, shots=shots)
@@ -657,7 +657,6 @@ class QrackDevice(QubitDevice):
         # estimate the ev
         return np.mean(self.sample(observable))
 
-
     def _generate_sample(self):
         rev_sample = self._state.m_all()
         sample = 0
@@ -665,7 +664,6 @@ class QrackDevice(QubitDevice):
             if (rev_sample & (1 << i)) > 0:
                 sample |= 1 << (self.num_wires - (i + 1))
         return sample
-
 
     def generate_samples(self):
         if self.shots is None:
@@ -680,13 +678,17 @@ class QrackDevice(QubitDevice):
                 self._state.reset_all()
                 self._apply()
                 self._samples.append(self._generate_sample())
-            self._samples = QubitDevice.states_to_binary(np.array([self._generate_sample()]), self.num_wires)
+            self._samples = QubitDevice.states_to_binary(
+                np.array([self._generate_sample()]), self.num_wires
+            )
             self._circuit = []
 
             return self._samples
 
         if self.shots == 1:
-            self._samples = QubitDevice.states_to_binary(np.array([self._generate_sample()]), self.num_wires)
+            self._samples = QubitDevice.states_to_binary(
+                np.array([self._generate_sample()]), self.num_wires
+            )
 
             return self._samples
 
