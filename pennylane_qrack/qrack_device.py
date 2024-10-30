@@ -24,7 +24,7 @@ import itertools as it
 
 import numpy as np
 
-from pennylane import QubitDevice, DeviceError
+from pennylane import QubitDevice, DeviceError, QuantumFunctionError
 from pennylane.ops import (
     QubitStateVector,
     BasisState,
@@ -175,32 +175,32 @@ class QrackDevice(QubitDevice):
 
     def __init__(self, wires=0, shots=None, **kwargs):
         options = dict(kwargs)
-        if 'isStabilizerHybrid' in options:
-            self.isStabilizerHybrid = options['isStabilizerHybrid']
-        if 'isTensorNetwork' in options:
-            self.isTensorNetwork = options['isTensorNetwork']
-        if 'isSchmidtDecompose' in options:
-            self.isSchmidtDecompose = options['isSchmidtDecompose']
-        if 'isBinaryDecisionTree' in options:
-            self.isBinaryDecisionTree = options['isBinaryDecisionTree']
-        if 'isOpenCL' in options:
-            self.isOpenCL = options['isOpenCL']
-        if 'isHostPointer' in options:
-            self.isHostPointer = options['isHostPointer']
-        if 'noise' in options:
+        if "isStabilizerHybrid" in options:
+            self.isStabilizerHybrid = options["isStabilizerHybrid"]
+        if "isTensorNetwork" in options:
+            self.isTensorNetwork = options["isTensorNetwork"]
+        if "isSchmidtDecompose" in options:
+            self.isSchmidtDecompose = options["isSchmidtDecompose"]
+        if "isBinaryDecisionTree" in options:
+            self.isBinaryDecisionTree = options["isBinaryDecisionTree"]
+        if "isOpenCL" in options:
+            self.isOpenCL = options["isOpenCL"]
+        if "isHostPointer" in options:
+            self.isHostPointer = options["isHostPointer"]
+        if "noise" in options:
             self.noise = options['noise']
             if self.noise != 0 and shots is None:
                 raise ValueError("Shots must be finite for noisy simulation (not analytical mode).")
         super().__init__(wires=wires, shots=shots)
         self._state = QrackSimulator(
             self.num_wires,
-            isStabilizerHybrid = self.isStabilizerHybrid,
+            isStabilizerHybrid=self.isStabilizerHybrid,
             isTensorNetwork=self.isTensorNetwork,
             isSchmidtDecompose=self.isSchmidtDecompose,
             isBinaryDecisionTree=self.isBinaryDecisionTree,
             isOpenCL=self.isOpenCL,
             isHostPointer=self.isHostPointer,
-            noise = self.noise
+            noise=self.noise,
         )
         self._circuit = []
 
@@ -669,7 +669,7 @@ class QrackDevice(QubitDevice):
 
     def generate_samples(self):
         if self.shots is None:
-            raise qml.QuantumFunctionError(
+            raise QuantumFunctionError(
                 "The number of shots has to be explicitly set on the device "
                 "when using sample-based measurements."
             )
