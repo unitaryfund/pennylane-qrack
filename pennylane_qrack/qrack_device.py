@@ -189,7 +189,7 @@ class QrackDevice(QubitDevice):
             self.isHostPointer = options['isHostPointer']
         if 'noise' in options:
             self.noise = options['noise']
-            if (self.noise != 0) and (shots is None):
+            if self.noise != 0 and shots is None:
                 raise ValueError("Shots must be finite for noisy simulation (not analytical mode).")
         super().__init__(wires=wires, shots=shots)
         self._state = QrackSimulator(
