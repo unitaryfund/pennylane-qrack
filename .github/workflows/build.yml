@@ -37,7 +37,7 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools pennylane-catalyst
+          python -m pip install wheel setuptools PennyLane-Catalyst
 
       - name: Build Wheel
         run: |
@@ -80,7 +80,7 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools pennylane-catalyst
+          python -m pip install wheel setuptools PennyLane-Catalyst
 
       - name: Build Wheel
         run: |
@@ -125,7 +125,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools pennylane-catalyst
+          python -m pip install wheel setuptools PennyLane-Catalyst
 
       - name: Build Wheel
         run: |
@@ -159,7 +159,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools pennylane-catalyst
+          python -m pip install wheel setuptools PennyLane-Catalyst
 
       - name: Install Homebrew (MacOS)
         uses: Homebrew/actions/setup-homebrew@master
@@ -205,7 +205,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools pennylane-catalyst
+          python -m pip install wheel setuptools PennyLane-Catalyst
 
       - name: Install Homebrew (MacOS)
         uses: Homebrew/actions/setup-homebrew@master
@@ -251,7 +251,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools pennylane-catalyst
+          python -m pip install wheel setuptools PennyLane-Catalyst
 
       - name: Install Homebrew (MacOS)
         uses: Homebrew/actions/setup-homebrew@master
@@ -302,7 +302,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install wheel setuptools pennylane-catalyst
+          python -m pip install wheel setuptools PennyLane-Catalyst
 
       - name: Install Homebrew (MacOS)
         uses: Homebrew/actions/setup-homebrew@master
