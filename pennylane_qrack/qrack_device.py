@@ -192,6 +192,7 @@ class QrackDevice(QubitDevice):
             if (self.noise != 0) and (shots is None):
                 raise ValueError("Shots must be finite for noisy simulation (not analytical mode).")
         super().__init__(wires=wires, shots=shots)
+        self.shots = shots
         self._state = QrackSimulator(
             self.num_wires,
             isStabilizerHybrid=self.isStabilizerHybrid,
