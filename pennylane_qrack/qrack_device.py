@@ -24,7 +24,8 @@ import itertools as it
 
 import numpy as np
 
-from pennylane import QubitDevice, DeviceError, QuantumFunctionError
+from pennylane import DeviceError, QuantumFunctionError
+from pennylane.devices import QubitDevice
 from pennylane.ops import (
     QubitStateVector,
     BasisState,
