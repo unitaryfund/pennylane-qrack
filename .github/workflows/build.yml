@@ -273,17 +273,6 @@ jobs:
 
       - name: Prepare Build Environment (MacOS)
         run: |
-          brew upgrade rustup
-          sudo rm /usr/local/bin/2to3-3.12
-          sudo rm /usr/local/bin/idle3.12
-          sudo rm /usr/local/bin/pydoc3.12
-          sudo rm /usr/local/bin/python3.12
-          sudo rm /usr/local/bin/python3.12-config
-          sudo rm /usr/local/bin/idle3
-          sudo rm /usr/local/bin/pydoc3
-          sudo rm /usr/local/bin/python3
-          sudo rm /usr/local/bin/python3-config
-          sudo rm /usr/local/share/man/man1/python3
           brew install cmake ninja libomp numpy virtualenv
 
       - name: Build Wheel
