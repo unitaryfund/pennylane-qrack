@@ -184,8 +184,8 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
             const Qrack::real1 omega = inverse ? -params[0U] : params[2U];
             const Qrack::real1 cos0 = (Qrack::real1)cos(theta / 2);
             const Qrack::real1 sin0 = (Qrack::real1)sin(theta / 2);
-            const Qrack::complex expP = exp(Qrack::I_CMPLX * (phi + omega) / (2 * ONE_R1));
-            const Qrack::complex expM = exp(Qrack::I_CMPLX * (phi - omega) / (2 * ONE_R1));
+            const Qrack::complex expP = exp(Qrack::I_CMPLX * (phi + omega) * HALF_R1);
+            const Qrack::complex expM = exp(Qrack::I_CMPLX * (phi - omega) HALF_R1);
             const Qrack::complex mtrx[4U]{
                 cos0 / expP, -sin0 * expM,
                 sin0 / expM, cos0 * expP
@@ -226,14 +226,12 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         QRACK_CONST Qrack::complex NEG_SQRTI_2_CMPLX(ZERO_R1, -Qrack::SQRT1_2_R1);
         const Qrack::complex QBRTI_2_CMPLX(ZERO_R1, sqrt(Qrack::SQRT1_2_R1));
         const Qrack::complex NEG_QBRTI_2_CMPLX(ZERO_R1, sqrt(-Qrack::SQRT1_2_R1));
-        QRACK_CONST Qrack::complex ONE_PLUS_I_DIV_2 = Qrack::complex((Qrack::real1)(ONE_R1 / 2), (Qrack::real1)(ONE_R1 / 2));
-        QRACK_CONST Qrack::complex ONE_MINUS_I_DIV_2 = Qrack::complex((Qrack::real1)(ONE_R1 / 2), (Qrack::real1)(-ONE_R1 / 2));
 
         QRACK_CONST Qrack::complex pauliX[4U] = { Qrack::ZERO_CMPLX, Qrack::ONE_CMPLX, Qrack::ONE_CMPLX, Qrack::ZERO_CMPLX };
         QRACK_CONST Qrack::complex pauliY[4U] = { Qrack::ZERO_CMPLX, NEG_I_CMPLX, Qrack::I_CMPLX, Qrack::ZERO_CMPLX };
         QRACK_CONST Qrack::complex pauliZ[4U] = { Qrack::ONE_CMPLX, Qrack::ZERO_CMPLX, Qrack::ZERO_CMPLX, NEG_1_CMPLX };
-        QRACK_CONST Qrack::complex sqrtX[4U]{ ONE_PLUS_I_DIV_2, ONE_MINUS_I_DIV_2, ONE_MINUS_I_DIV_2, ONE_PLUS_I_DIV_2 };
-        QRACK_CONST Qrack::complex iSqrtX[4U]{ ONE_MINUS_I_DIV_2, ONE_PLUS_I_DIV_2, ONE_PLUS_I_DIV_2, ONE_MINUS_I_DIV_2 };
+        QRACK_CONST Qrack::complex sqrtX[4U]{ Qrack::HALF_I_HALF_CMPLX, Qrack::HALF_NEG_I_HALF_CMPLX, Qrack::HALF_NEG_I_HALF_CMPLX, Qrack::HALF_I_HALF_CMPLX };
+        QRACK_CONST Qrack::complex iSqrtX[4U]{ Qrack::HALF_NEG_I_HALF_CMPLX, Qrack::HALF_I_HALF_CMPLX, Qrack::HALF_I_HALF_CMPLX, Qrack::HALF_NEG_I_HALF_CMPLX };
         QRACK_CONST Qrack::complex hadamard[4U]{ SQRT1_2_CMPLX, SQRT1_2_CMPLX, SQRT1_2_CMPLX, NEG_SQRT1_2_CMPLX };
 
         if ((name == "PauliX") || (name == "CNOT") || (name == "Toffoli") || (name == "MultiControlledX")) {
@@ -348,8 +346,8 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
             const Qrack::real1 omega = inverse ? -params[0U] : params[2U];
             const Qrack::real1 cos0 = (Qrack::real1)cos(theta / 2);
             const Qrack::real1 sin0 = (Qrack::real1)sin(theta / 2);
-            const Qrack::complex expP = exp(Qrack::I_CMPLX * (phi + omega) / (2 * ONE_R1));
-            const Qrack::complex expM = exp(Qrack::I_CMPLX * (phi - omega) / (2 * ONE_R1));
+            const Qrack::complex expP = exp(Qrack::I_CMPLX * (phi + omega) * HALF_R1);
+            const Qrack::complex expM = exp(Qrack::I_CMPLX * (phi - omega) * HALF_R1);
             const Qrack::complex mtrx[4U]{
                 cos0 / expP, -sin0 * expM,
                 sin0 / expM, cos0 * expP
