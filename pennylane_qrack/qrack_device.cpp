@@ -185,7 +185,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
             const Qrack::real1 cos0 = (Qrack::real1)cos(theta / 2);
             const Qrack::real1 sin0 = (Qrack::real1)sin(theta / 2);
             const Qrack::complex expP = exp(Qrack::I_CMPLX * (phi + omega) * HALF_R1);
-            const Qrack::complex expM = exp(Qrack::I_CMPLX * (phi - omega) HALF_R1);
+            const Qrack::complex expM = exp(Qrack::I_CMPLX * (phi - omega) * HALF_R1);
             const Qrack::complex mtrx[4U]{
                 cos0 / expP, -sin0 * expM,
                 sin0 / expM, cos0 * expP
