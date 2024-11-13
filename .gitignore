@@ -23,6 +23,8 @@ lib64/
 parts/
 sdist/
 _skbuild/
+qrack/
+_qrack_include/
 var/
 *.egg-info/
 .installed.cfg
