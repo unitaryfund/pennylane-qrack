@@ -245,12 +245,12 @@ class TestStateApply:
         expected = dev._expand_state(expected, op_wires)
         assert np.allclose(res, expected, tol)
 
-    def test_qubit_state_vector(self, init_state, tol):
-        """Test QubitStateVector application"""
+    def test_state_prep(self, init_state, tol):
+        """Test StatePrep application"""
         dev = QrackDevice(1, isOpenCL=False)
         state = init_state(1)
 
-        op = qml.QubitStateVector(state, wires=[0])
+        op = qml.StatePrep(state, wires=[0])
         dev.apply([op])
         dev._obs_queue = []
 
@@ -260,12 +260,12 @@ class TestStateApply:
 
     @pytest.mark.parametrize("device_wires", [3, 4, 5])
     @pytest.mark.parametrize("op_wires", [[0], [2], [0, 1], [1, 0], [2, 0]])
-    def test_qubit_state_vector_on_wires_subset(self, init_state, device_wires, op_wires, tol):
-        """Test QubitStateVector application on a subset of device wires"""
+    def test_state_prep_on_wires_subset(self, init_state, device_wires, op_wires, tol):
+        """Test StatePrep application on a subset of device wires"""
         dev = QrackDevice(device_wires, isOpenCL=False)
         state = init_state(len(op_wires))
 
-        op = qml.QubitStateVector(state, wires=op_wires)
+        op = qml.StatePrep(state, wires=op_wires)
         dev.apply([op])
         dev._obs_queue = []
 
@@ -274,7 +274,7 @@ class TestStateApply:
 
         assert np.allclose(res, expected, tol)
 
-    def test_invalid_qubit_state_vector(self):
+    def test_invalid_state_prep(self):
         """Test that an exception is raised if the state
         vector is the wrong size"""
         dev = QrackDevice(2, isOpenCL=False)
@@ -284,7 +284,7 @@ class TestStateApply:
             ValueError,
             match="State vector must have shape \\(2\\*\\*wires,\\) or \\(batch_size, 2\\*\\*wires\\).",
         ):
-            op = qml.QubitStateVector(state, wires=[0, 1])
+            op = qml.StatePrep(state, wires=[0, 1])
             dev.apply([op])
 
     @pytest.mark.parametrize("op,mat", single_qubit)
@@ -293,7 +293,7 @@ class TestStateApply:
         dev = QrackDevice(1, isOpenCL=False)
         state = init_state(1)
 
-        dev.apply([qml.QubitStateVector(state, wires=[0]), op])
+        dev.apply([qml.StatePrep(state, wires=[0]), op])
         dev._obs_queue = []
 
         res = dev.state
@@ -328,7 +328,7 @@ class TestStateApply:
         state = init_state(1)
 
         op.data = [theta]
-        dev.apply([qml.QubitStateVector(state, wires=[0]), op])
+        dev.apply([qml.StatePrep(state, wires=[0]), op])
         dev._obs_queue = []
 
         res = dev.state
@@ -368,7 +368,7 @@ class TestStateApply:
         state = init_state(1)
 
         op.data = [phi, theta, omega]
-        dev.apply([qml.QubitStateVector(state, wires=[0]), op])
+        dev.apply([qml.StatePrep(state, wires=[0]), op])
         dev._obs_queue = []
 
         res = dev.state
@@ -406,7 +406,7 @@ class TestStateApply:
         dev = QrackDevice(2, isOpenCL=False)
         state = init_state(2)
 
-        dev.apply([qml.QubitStateVector(state, wires=[0, 1]), op])
+        dev.apply([qml.StatePrep(state, wires=[0, 1]), op])
         dev._obs_queue = []
 
         res = dev.state
@@ -442,7 +442,7 @@ class TestStateApply:
         state = init_state(N)
 
         op = qml.QubitUnitary(mat, wires=list(range(N)))
-        dev.apply([qml.QubitStateVector(state, wires=list(range(N))), op])
+        dev.apply([qml.StatePrep(state, wires=list(range(N))), op])
         dev._obs_queue = []
 
         res = dev.state
@@ -486,7 +486,7 @@ class TestStateApply:
         dev = QrackDevice(3, isOpenCL=False)
         state = init_state(3)
 
-        dev.apply([qml.QubitStateVector(state, wires=[0, 1, 2]), op])
+        dev.apply([qml.StatePrep(state, wires=[0, 1, 2]), op])
         dev._obs_queue = []
 
         res = dev.state
@@ -517,7 +517,7 @@ class TestStateApply:
         dev = QrackDevice(4, isOpenCL=False)
         state = init_state(4)
 
-        dev.apply([qml.QubitStateVector(state, wires=[0, 1, 2, 3]), op])
+        dev.apply([qml.StatePrep(state, wires=[0, 1, 2, 3]), op])
         dev._obs_queue = []
 
         res = dev.state
@@ -532,7 +532,7 @@ class TestStateApply:
         state = init_state(2)
 
         op.data = [theta]
-        dev.apply([qml.QubitStateVector(state, wires=[0, 1]), op])
+        dev.apply([qml.StatePrep(state, wires=[0, 1]), op])
 
         dev._obs_queue = []
 
@@ -573,7 +573,7 @@ class TestStateApply:
         state = init_state(2)
 
         op.data = [phi, theta, omega]
-        dev.apply([qml.QubitStateVector(state, wires=[0, 1]), op])
+        dev.apply([qml.StatePrep(state, wires=[0, 1]), op])
         dev._obs_queue = []
 
         res = dev.state
@@ -582,12 +582,12 @@ class TestStateApply:
         expected = [(x * x.conj()).real for x in expected]
         assert np.allclose(res, expected, tol)
 
-    def test_apply_errors_qubit_state_vector(self):
+    def test_apply_errors_state_prep(self):
         """Test that apply fails for incorrect state preparation."""
         dev = QrackDevice(2, isOpenCL=False)
 
         with pytest.raises(ValueError, match="Sum of amplitudes-squared does not equal one."):
-            dev.apply([qml.QubitStateVector(np.array([1, -1]), wires=[0])])
+            dev.apply([qml.StatePrep(np.array([1, -1]), wires=[0])])
 
         with pytest.raises(
             ValueError,
@@ -595,7 +595,7 @@ class TestStateApply:
         ):
             p = np.array([1, 0, 1, 1, 0]) / np.sqrt(3)
             dev.reset()
-            dev.apply([qml.QubitStateVector(p, wires=[0, 1])])
+            dev.apply([qml.StatePrep(p, wires=[0, 1])])
 
     def test_apply_errors_basis_state(self):
         """Test that apply fails for incorrect basis state preparation."""
