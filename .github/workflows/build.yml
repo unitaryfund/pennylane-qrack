@@ -291,62 +291,6 @@ jobs:
           name: pennylane_qrack-${{ matrix.platform }}
           path: dist/
 
-  build_mac_12:
-    runs-on: macos-12  # Use a Mac OS runner
-    strategy:
-      matrix:
-        platform:
-          - macosx_12_0_x86_64
-    steps:
-      - name: Checkout PennyLane-Qrack
-        uses: actions/checkout@v4
-
-      - name: Checkout Catalyst
-        uses: actions/checkout@v4
-        with:
-          repository: 'PennyLaneAI/catalyst'
-          path: catalyst
-          ref: 2c45243b0b848b30b979f7840f969f6378019dd0
-
-      - name: Install Python Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install wheel setuptools PennyLane-Catalyst
-
-      - name: Install Homebrew (MacOS)
-        uses: Homebrew/actions/setup-homebrew@master
-
-      - name: Prepare Build Environment (MacOS)
-        run: |
-          brew upgrade rustup
-          sudo rm /usr/local/bin/2to3
-          sudo rm /usr/local/bin/2to3-3.12
-          sudo rm /usr/local/bin/idle3
-          sudo rm /usr/local/bin/idle3.12
-          sudo rm /usr/local/bin/pydoc3
-          sudo rm /usr/local/bin/pydoc3.12
-          sudo rm /usr/local/bin/python3
-          sudo rm /usr/local/bin/python3-config
-          sudo rm /usr/local/bin/python3.12
-          sudo rm /usr/local/bin/python3.12-config
-          brew install cmake ninja libomp numpy virtualenv python@3.12
-
-      - name: Build Wheel
-        run: |
-          mkdir venv
-          python -m venv venv
-          source venv/bin/activate
-          pip3 install --upgrade wheel setuptools
-          pip3 install -r requirements.txt
-          pip3 install .
-          python setup.py bdist_wheel --plat-name=${{ matrix.platform }}
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: pennylane_qrack-${{ matrix.platform }}
-          path: dist/
-
   build_windows:
     runs-on: windows-latest  # Use a Linux runner
     strategy:
