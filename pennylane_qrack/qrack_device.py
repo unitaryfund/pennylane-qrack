@@ -157,6 +157,8 @@ class QrackDevice(QubitDevice):
     isBinaryDecisionTree = False
     # Use GPU acceleration? (Default is "true")
     isOpenCL = True
+    # Use CPU/GPU method hybridization? (Default is "false")
+    isCpuGpuHybrid = False
     # Allocate GPU buffer from general host heap? (Default is "false"; "true" might improve performance or reliability in certain cases, like if using an Intel HD as accelerator)
     isHostPointer = False
     # Noise parameter. (Default is "0"; depolarizing noise intensity can also be controlled by "QRACK_GATE_DEPOLARIZATION" environment variable)
@@ -186,6 +188,8 @@ class QrackDevice(QubitDevice):
             self.isBinaryDecisionTree = options["isBinaryDecisionTree"]
         if "isOpenCL" in options:
             self.isOpenCL = options["isOpenCL"]
+        if "isCpuGpuHybrid" in options:
+            self.isCpuGpuHybrid = options["isCpuGpuHybrid"]
         if "isHostPointer" in options:
             self.isHostPointer = options["isHostPointer"]
         if "noise" in options:
@@ -201,6 +205,7 @@ class QrackDevice(QubitDevice):
             isSchmidtDecompose=self.isSchmidtDecompose,
             isBinaryDecisionTree=self.isBinaryDecisionTree,
             isOpenCL=self.isOpenCL,
+            isCpuGpuHybrid=self.isCpuGpuHybrid,
             isHostPointer=self.isHostPointer,
             noise=self.noise,
         )
