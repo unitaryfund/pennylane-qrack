@@ -6,7 +6,7 @@
 
 ### Breaking changes 💔
 
-* The ``qml.QubitStateVector`` template has been removed. Instead, use :class:`~pennylane.StatePrep`.
+* The `qml.QubitStateVector` template has been removed. Instead, use `qml.StatePrep`.
   [(#27)](https://github.com/unitaryfund/pennylane-qrack/pull/27/)
   
 ### Deprecations 👋
