@@ -27,7 +27,7 @@ import numpy as np
 from pennylane import DeviceError, QuantumFunctionError
 from pennylane.devices import QubitDevice
 from pennylane.ops import (
-    QubitStateVector,
+    StatePrep,
     BasisState,
     QubitUnitary,
     CRZ,
@@ -238,8 +238,8 @@ class QrackDevice(QubitDevice):
 
     def _apply(self):
         for op in self._circuit:
-            if isinstance(op, QubitStateVector):
-                self._apply_qubit_state_vector(op)
+            if isinstance(op, StatePrep):
+                self._apply_state_prep(op)
             elif isinstance(op, BasisState):
                 self._apply_basis_state(op)
             elif isinstance(op, QubitUnitary):
@@ -268,7 +268,7 @@ class QrackDevice(QubitDevice):
 
         return state_vector.flatten()
 
-    def _apply_qubit_state_vector(self, op):
+    def _apply_state_prep(self, op):
         """Initialize state with a state vector"""
         wires = op.wires
         input_state = op.parameters[0]

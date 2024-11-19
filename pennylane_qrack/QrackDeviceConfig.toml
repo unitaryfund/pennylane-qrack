@@ -58,7 +58,6 @@ Identity = { properties = [ "controllable", "invertible" ] }
 # SISWAP = {}
 # SQISW = {}
 # BasisState = {}
-# QubitStateVector = {}
 # StatePrep = {}
 # ControlledQubitUnitary = {}
 # DiagonalQubitUnitary = {}
