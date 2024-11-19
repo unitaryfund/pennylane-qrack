@@ -157,6 +157,8 @@ class QrackDevice(QubitDevice):
     isBinaryDecisionTree = False
     # Use GPU acceleration? (Default is "true")
     isOpenCL = True
+    # Use multi-GPU (or "multi-page") acceleration? (Default is "false")
+    isPaged = False
     # Use CPU/GPU method hybridization? (Default is "false")
     isCpuGpuHybrid = False
     # Allocate GPU buffer from general host heap? (Default is "false"; "true" might improve performance or reliability in certain cases, like if using an Intel HD as accelerator)
@@ -188,6 +190,8 @@ class QrackDevice(QubitDevice):
             self.isBinaryDecisionTree = options["isBinaryDecisionTree"]
         if "isOpenCL" in options:
             self.isOpenCL = options["isOpenCL"]
+        if "isPaged" in options:
+            self.isPaged = options["isPaged"]
         if "isCpuGpuHybrid" in options:
             self.isCpuGpuHybrid = options["isCpuGpuHybrid"]
         if "isHostPointer" in options:

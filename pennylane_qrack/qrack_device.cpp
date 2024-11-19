@@ -6,7 +6,7 @@
 #define CL_HPP_TARGET_OPENCL_VERSION 300
 #include "qrack/qfactory.hpp"
 
-#define QSIM_CONFIG(numQubits) Qrack::CreateArrangedLayersFull(nw, md, sd, sh, bdt, true, tn, hy, oc, numQubits, Qrack::ZERO_BCI, nullptr, Qrack::CMPLX_DEFAULT_ARG, false, true, hp)
+#define QSIM_CONFIG(numQubits) Qrack::CreateArrangedLayersFull(nw, md, sd, sh, bdt, pg, tn, hy, oc, numQubits, Qrack::ZERO_BCI, nullptr, Qrack::CMPLX_DEFAULT_ARG, false, true, hp)
 
 std::string trim(std::string s)
 {
@@ -38,6 +38,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
     bool md;
     bool bdt;
     bool oc;
+    bool pg;
     bool hy;
     bool hp;
     bool nw;
@@ -386,6 +387,7 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         , md(true)
         , bdt(false)
         , oc(true)
+        , pg(false)
         , hy(false)
         , hp(false)
         , nw(false)
@@ -405,9 +407,10 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
         keyMap["'is_schmidt_decomposition_parallel'"] = 4;
         keyMap["'is_qbdd'"] = 5;
         keyMap["'is_gpu'"] = 6;
-        keyMap["'is_hybrid_cpu_gpu'"] = 7;
-        keyMap["'is_host_pointer'"] =8;
-        keyMap["'noise'"] = 9;
+        keyMap["'is_paged'"] = 7;
+        keyMap["'is_hybrid_cpu_gpu'"] = 8;
+        keyMap["'is_host_pointer'"] =9;
+        keyMap["'noise'"] = 10;
 
         size_t pos;
         Qrack::real1_f noiseParam = 0;
@@ -438,12 +441,15 @@ struct QrackDevice final : public Catalyst::Runtime::QuantumDevice {
                     oc =  val;
                     break;
                 case 7:
-                    hy =  val;
+                    pg =  val;
                     break;
                 case 8:
-                    hp = val;
+                    hy =  val;
                     break;
                 case 9:
+                    hp = val;
+                    break;
+                case 10:
                     noiseParam = std::stof(value);
                     nw = noiseParam > ZERO_R1;
                     break;
