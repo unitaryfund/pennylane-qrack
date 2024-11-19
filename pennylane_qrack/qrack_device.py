@@ -158,9 +158,9 @@ class QrackDevice(QubitDevice):
     # Use GPU acceleration? (Default is "true")
     isOpenCL = True
     # Use multi-GPU (or "multi-page") acceleration? (Default is "false")
-    isPaged = False
+    isPaged = True
     # Use CPU/GPU method hybridization? (Default is "false")
-    isCpuGpuHybrid = False
+    isCpuGpuHybrid = True
     # Allocate GPU buffer from general host heap? (Default is "false"; "true" might improve performance or reliability in certain cases, like if using an Intel HD as accelerator)
     isHostPointer = False
     # Noise parameter. (Default is "0"; depolarizing noise intensity can also be controlled by "QRACK_GATE_DEPOLARIZATION" environment variable)
