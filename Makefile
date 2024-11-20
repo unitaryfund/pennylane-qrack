@@ -29,21 +29,21 @@ endif
 	mkdir -p qrack/build
 ifeq ($(UNAME_S),Linux)
 ifeq ($(UNAME_P),x86_64)
-	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON ..; make all
+	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON ..; make all; cd ../..
 else
-	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF ..; make all
+	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_DEVRAND=ON -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF ..; make all; cd ../..
 endif
 endif
 ifeq ($(UNAME_S),Darwin)
 ifeq ($(UNAME_P),x86_64)
-	cd qrack/build; cmake ..; make all
+	cd qrack/build; cmake ..; make all; cd ../..
 else
-	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_OPENCL=OFF ..; make all
+	cd qrack/build; cmake -DENABLE_RDRAND=OFF -DENABLE_COMPLEX_X2=OFF -DENABLE_SSE3=OFF -DENABLE_OPENCL=OFF ..; make all; cd ../..
 endif
 endif
 endif
-	mkdir ../../_qrack_include; mkdir ../../_qrack_include/qrack; cp -r ../include/* ../../_qrack_include/qrack; cp -r include/* ../../_qrack_include/qrack; \
-	cd ../../pennylane_qrack; cmake ..; make all
+	mkdir _qrack_include; mkdir _qrack_include/qrack; cp -r qrack/include/* _qrack_include/qrack; cp -r qrack/build/include/* _qrack_include/qrack; \
+	cd pennylane_qrack; cmake ..; make all
 
 .PHONY: install
 install:
