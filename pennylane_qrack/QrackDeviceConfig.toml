@@ -1,88 +1,67 @@
-# Which version of the specification format is being used.
-schema = 2
+schema = 3
 
-# The union of all gate types listed in this section must match what
-# the device considers "supported" through PennyLane's device API.
-# The gate definition has the following format:
+# The set of all gate types supported at the runtime execution interface of the
+# device, i.e., what is supported by the `execute` method. The gate definitions
+# should have the following format:
 #
-#   GATE = { properties = [ PROPS ], condition = [ COND ] }
+#   GATE = { properties = [ PROPS ], conditions = [ CONDS ] }
 #
-# Where:
+# where PROPS and CONS are zero or more comma separated quoted strings.
 #
-#   PROPS: zero or more comma-separated quoted strings:
-#          "controllable", "invertible", "differentiable"
-#   COND: quoted string, on of:
-#         "analytic", "finiteshots"
+# PROPS: additional support provided for each gate.
+#        - "controllable": if a controlled version of this gate is supported.
+#        - "invertible": if the adjoint of this operation is supported.
+#        - "differentiable": if device gradient is supported for this gate.
+# CONDS: constraints on the support for each gate.
+#        - "analytic" or "finiteshots": if this operation is only supported in
+#          either analytic execution or with shots, respectively.
 #
-[operators.gates.native]
+[operators.gates]
 
-PauliX = { properties = [ "controllable", "invertible"] }
-PauliY = { properties = [ "controllable", "invertible"] }
-PauliZ = { properties = [ "controllable", "invertible"] }
-SX = { properties = [ "controllable", "invertible"] }
-MultiRZ = { properties = [ "controllable", "invertible" ] }
-Hadamard = { properties = [ "controllable", "invertible"] }
-S = { properties = [ "controllable", "invertible" ] }
-T = { properties = [ "controllable", "invertible" ] }
-CNOT = { properties = [ "controllable", "invertible" ] }
-SWAP = { properties = [ "controllable", "invertible" ] }
-CSWAP = { properties = [ "controllable", "invertible" ] }
-ISWAP = { properties = [ "controllable", "invertible"] }
-PSWAP = { properties = [ "controllable", "invertible"] }
-Toffoli = { properties = [ "controllable", "invertible" ] }
-CY = { properties = [ "controllable", "invertible" ] }
-CZ = { properties = [ "controllable", "invertible" ] }
-PhaseShift = { properties = [ "controllable", "invertible" ] }
-ControlledPhaseShift = { properties = [ "controllable", "invertible" ] }
-CPhase = { properties = [ "controllable", "invertible" ] }
-RX = { properties = [ "controllable", "invertible" ] }
-RY = { properties = [ "controllable", "invertible" ] }
-RZ = { properties = [ "controllable", "invertible" ] }
-Rot = { properties = [ "controllable", "invertible" ] }
-CRX = { properties = [ "controllable", "invertible" ] }
-CRY = { properties = [ "controllable", "invertible" ] }
-CRZ = { properties = [ "controllable", "invertible" ] }
-CRot = { properties = [ "controllable", "invertible" ] }
-U3 = { properties = [ "controllable", "invertible" ] }
-MultiControlledX = { properties = [ "controllable", "invertible" ] }
-Identity = { properties = [ "controllable", "invertible" ] }
+PauliX                  = { properties = [ "controllable", "invertible" ] }
+PauliY                  = { properties = [ "controllable", "invertible" ] }
+PauliZ                  = { properties = [ "controllable", "invertible" ] }
+SX                      = { properties = [ "controllable", "invertible" ] }
+MultiRZ                 = { properties = [ "controllable", "invertible" ] }
+Hadamard                = { properties = [ "controllable", "invertible" ] }
+S                       = { properties = [ "controllable", "invertible" ] }
+T                       = { properties = [ "controllable", "invertible" ] }
+CNOT                    = { properties = [ "controllable", "invertible" ] }
+SWAP                    = { properties = [ "controllable", "invertible" ] }
+CSWAP                   = { properties = [ "controllable", "invertible" ] }
+ISWAP                   = { properties = [ "controllable", "invertible" ] }
+PSWAP                   = { properties = [ "controllable", "invertible" ] }
+Toffoli                 = { properties = [ "controllable", "invertible" ] }
+CY                      = { properties = [ "controllable", "invertible" ] }
+CZ                      = { properties = [ "controllable", "invertible" ] }
+PhaseShift              = { properties = [ "controllable", "invertible" ] }
+ControlledPhaseShift    = { properties = [ "controllable", "invertible" ] }
+CPhase                  = { properties = [ "controllable", "invertible" ] }
+RX                      = { properties = [ "controllable", "invertible" ] }
+RY                      = { properties = [ "controllable", "invertible" ] }
+RZ                      = { properties = [ "controllable", "invertible" ] }
+Rot                     = { properties = [ "controllable", "invertible" ] }
+CRX                     = { properties = [ "controllable", "invertible" ] }
+CRY                     = { properties = [ "controllable", "invertible" ] }
+CRZ                     = { properties = [ "controllable", "invertible" ] }
+CRot                    = { properties = [ "controllable", "invertible" ] }
+U3                      = { properties = [ "controllable", "invertible" ] }
+MultiControlledX        = { properties = [ "controllable", "invertible" ] }
+Identity                = { properties = [ "controllable", "invertible" ] }
 
-# Operators that should be decomposed according to the algorithm used
-# by PennyLane's device API.
-# Optional, since gates not listed in this list will typically be decomposed by
-# default, but can be useful to express a deviation from this device's regular
-# strategy in PennyLane.
-# [operators.gates.decomp]
-
-# QubitUnitary = {}
-# SISWAP = {}
-# SQISW = {}
-# BasisState = {}
-# StatePrep = {}
-# ControlledQubitUnitary = {}
-# DiagonalQubitUnitary = {}
-# SingleExcitation = {}
-# SingleExcitationPlus = {}
-# SingleExcitationMinus = {}
-# DoubleExcitation = {}
-# DoubleExcitationPlus = {}
-# DoubleExcitationMinus = {}
-# QubitCarry = {}
-# QubitSum = {}
-# OrbitalRotation = {}
-# ECR = {}
-# IsingXX = {}
-# IsingYY = {}
-# IsingZZ = {}
-# IsingXY = {}
-# U2 = {}
-# U1 = {}
-# QFT = {}
-
-# Gates which should be translated to QubitUnitary
-# [operators.gates.matrix]
-
-# Observables supported by the device
+# Observables supported by the device for measurements. The observables defined
+# in this section should have the following format:
+#
+#   OBSERVABLE = { conditions = [ CONDS ] }
+#
+# where CONDS is zero or more comma separated quoted strings, same as above.
+#
+# CONDS: constraints on the support for each observable.
+#        - "analytic" or "finiteshots": if this observable is only supported in
+#          either analytic execution or with shots, respectively.
+#        - "terms-commute": if a composite operator is only supported under the
+#          condition that its terms commute.
+#
 [operators.observables]
 
 PauliX = {}
@@ -99,60 +78,40 @@ Prod = {}
 # SProd = {}
 # Exp = {}
 
+# Types of measurement processes supported on the device. The measurements in
+# this section should have the following format:
+#
+#   MEASUREMENT_PROCESS = { conditions = [ CONDS ] }
+#
+# where CONDS is zero or more comma separated quoted strings, same as above.
+#
+# CONDS: constraints on the support for each measurement process.
+#        - "analytic" or "finiteshots": if this measurement is only supported
+#          in either analytic execution or with shots, respectively.
+#
 [measurement_processes]
 
-Expval = { condition = [ "analytic" ] }
-Var = { condition = [ "analytic" ] }
-Probs = { condition = [ "analytic" ] }
-State  = { condition = [ "analytic" ] }
-Sample = { condition = [ "finiteshots" ] }
-Counts = { condition = [ "finiteshots" ] }
+ExpectationMP   = { conditions = [ "analytic" ] }
+VarianceMP      = { conditions = [ "analytic" ] }
+ProbabilityMP   = { conditions = [ "analytic" ] }
+StateMP         = { conditions = [ "analytic" ] }
+SampleMP        = { conditions = [ "finiteshots" ] }
+CountsMP        = { conditions = [ "finiteshots" ] }
 
+# Additional support that the device may provide that informs the compilation
+# process. All accepted fields and their default values are listed below.
 [compilation]
 
-# If the device is compatible with qjit
+# Whether the device is compatible with qjit.
 qjit_compatible = true
-# If the device requires run time generation of the quantum circuit.
+
+# Whether the device requires run time generation of the quantum circuit.
 runtime_code_generation = false
-# If the device supports mid circuit measurements natively
-mid_circuit_measurement = true
-# This field is currently unchecked but it is reserved for the purpose of
-# determining if the device supports dynamic qubit allocation/deallocation.
+
+# Whether the device supports allocating and releasing qubits during execution.
 dynamic_qubit_management = true
 
-[options]
-# Options is an optional field.
-# These options represent runtime parameters that can be passed to the device
-# upon the device initialization.
-# The option key will be the key in a dictionary.
-# The string corresponds to a field queried in the `qml.Device` instance.
-
-# Use "hybrid" stabilizer optimization? (Default is "true"; non-Clifford circuits will fall back to near-Clifford or universal simulation)
-is_hybrid_stabilizer = "isStabilizerHybrid"
-# Use "tensor network" optimization? (Default is "true"; prevents dynamic qubit de-allocation; might function sub-optimally with "hybrid" stabilizer enabled)
-is_tensor_network = "isTensorNetwork"
-# Use Schmidt decomposition optimizations? (Default is "true")
-is_schmidt_decomposed = "isSchmidtDecompose"
-# Distribute Schmidt-decomposed qubit subsystems to multiple GPUs or accelerators, if available? (Default is "true"; mismatched device capacities might hurt overall performance)
-is_schmidt_decomposition_parallel = "isSchmidtDecomposeMulti"
-# Use "quantum binary decision diagram" ("QBDD") methods? (Default is "false"; note that QBDD is CPU-only)
-is_qbdd = "isBinaryDecisionTree"
-# Use GPU acceleration? (Default is "true")
-is_gpu = "isOpenCL"
-# Use multi-GPU (or "multi-page") acceleration? (Default is "false")
-is_paged = "isPaged"
-# Use CPU/GPU method hybridization? (Default is "false")
-is_hybrid_cpu_gpu = "isCpuGpuHybrid"
-# Allocate GPU buffer from general host heap? (Default is "false"; "true" might improve performance or reliability in certain cases, like if using an Intel HD as accelerator)
-is_host_pointer = "isHostPointer"
-# Noise parameter. (Default is "0"; depolarizing noise intensity can also be controlled by "QRACK_GATE_DEPOLARIZATION" environment variable)
-noise = "noise"
-
-# In the above example, a dictionary will be constructed at run time.
-# The dictionary will contain the string key "option_key" and its value
-# will be the value in `qml.Device` `option_field`.
-# The value can be any Python type, but will be converted to a string.
-# During the initialization of your `class QuantumDevice`, the dictionary
-# will be sent to the constructor of your implementation of `class QuantumDevice`.
-# The dictionary will be a JSON string like the following:
-# { 'option_key': option_field }
+# The methods of handling mid-circuit measurements that the device supports,
+# e.g., "one-shot", "tree-traversal", "device", etc. An empty list indicates
+# that the device does not support mid-circuit measurements.
+supported_mcm_methods = [ "device", "one-shot" ]

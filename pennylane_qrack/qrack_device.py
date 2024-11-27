@@ -141,7 +141,7 @@ class QrackDevice(QubitDevice):
         "C(MultiControlledX)",
     }
 
-    config = pathlib.Path(
+    config_filepath = pathlib.Path(
         os.path.dirname(sys.modules[__name__].__file__) + "/QrackDeviceConfig.toml"
     )
 
@@ -213,6 +213,18 @@ class QrackDevice(QubitDevice):
             isHostPointer=self.isHostPointer,
             noise=self.noise,
         )
+        self.device_kwargs = {
+            "is_hybrid_stabilizer": self.isStabilizerHybrid,
+            "is_tensor_network": self.isTensorNetwork,
+            "is_schmidt_decompose": self.isSchmidtDecompose,
+            "is_schmidt_decompose_parallel": self.isSchmidtDecomposeMulti,
+            "is_qpdd": self.isBinaryDecisionTree,
+            "is_gpu": self.isOpenCL,
+            "is_paged": self.isPaged,
+            "is_hybrid_cpu_gpu": self.isCpuGpuHybrid,
+            "is_host_pointer": self.isHostPointer,
+            "noise": self.noise,
+        }
         self._circuit = []
 
     def _reverse_state(self):
