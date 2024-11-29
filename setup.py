@@ -41,7 +41,7 @@ info = {
     "maintainer_email": "stranoj@gmail.com",
     "url": "http://github.com/vm6502q",
     "license": "Apache License 2.0",
-    "packages": ["pennylane_qrack"],
+    "packages": ["pennylane_qrack>=0.39.0"],
     "cmdclass": {"build_py": Build},
     "entry_points": {
         "pennylane.plugins": ["qrack.simulator = pennylane_qrack.qrack_device:QrackDevice"]
