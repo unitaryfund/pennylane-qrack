@@ -32,7 +32,7 @@ class Build(build_py):
 with open("./pennylane_qrack/_version.py") as f:
     (version,) = re.findall('__version__ = "(.*)"', f.read())
 
-requirements = ["pennylane>=0.32", "pyqrack>=1.30.0", "numpy>=1.16"]
+requirements = ["pennylane>=0.39.0", "pyqrack>=1.30.0", "numpy>=1.16"]
 
 info = {
     "name": "pennylane-qrack",
@@ -41,7 +41,7 @@ info = {
     "maintainer_email": "stranoj@gmail.com",
     "url": "http://github.com/vm6502q",
     "license": "Apache License 2.0",
-    "packages": ["pennylane_qrack>=0.39.0"],
+    "packages": ["pennylane_qrack"],
     "cmdclass": {"build_py": Build},
     "entry_points": {
         "pennylane.plugins": ["qrack.simulator = pennylane_qrack.qrack_device:QrackDevice"]
