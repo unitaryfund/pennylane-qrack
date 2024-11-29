@@ -51,7 +51,6 @@ info = {
     "long_description_content_type": "text/x-rst",
     "provides": ["pennylane_qrack"],
     "install_requires": requirements,
-    "setup_requires": ["cmake"],
     "package_data": {"pennylane_qrack": ["QrackDeviceConfig.toml"]},
     "include_package_data": True,
 }
