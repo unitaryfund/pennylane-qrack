@@ -14,7 +14,6 @@
 """
 Base device class for PennyLane-Qrack.
 """
-from collections import OrderedDict
 from functools import reduce
 import cmath, math
 import os
@@ -30,8 +29,6 @@ from pennylane.ops import (
     StatePrep,
     BasisState,
     QubitUnitary,
-    CRZ,
-    PhaseShift,
     Adjoint,
 )
 from pennylane.wires import Wires
@@ -162,7 +159,7 @@ class QrackDevice(QubitDevice):
     # Use CPU/GPU method hybridization? (Default is "false")
     isCpuGpuHybrid = True
     # Allocate GPU buffer from general host heap? (Default is "false"; "true" might improve performance or reliability in certain cases, like if using an Intel HD as accelerator)
-    isHostPointer = False
+    isHostPointer = True if os.environ.get('PYQRACK_HOST_POINTER_DEFAULT_ON') else False
     # Noise parameter. (Default is "0"; depolarizing noise intensity can also be controlled by "QRACK_GATE_DEPOLARIZATION" environment variable)
     noise = 0
 
